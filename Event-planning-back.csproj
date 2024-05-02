@@ -5,8 +5,10 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>Event_planning_back</RootNamespace>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
   </PropertyGroup>
-
+    
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.4" />
@@ -24,6 +26,13 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Event-planning-back.DataAccess\obj\Event-planning-back.DataAccess.csproj.nuget.dgspec.json" />
+    <_ContentIncludedByDefault Remove="Event-planning-back.DataAccess\obj\project.assets.json" />
+    <_ContentIncludedByDefault Remove="Event-planning-back.DataAccess\obj\project.packagespec.json" />
+    <_ContentIncludedByDefault Remove="Event-planning-back.DataAccess\obj\Debug\net8.0\Event-planning-back.DataAccess.sourcelink.json" />
   </ItemGroup>
 
 </Project>

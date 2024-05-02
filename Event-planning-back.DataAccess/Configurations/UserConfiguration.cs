@@ -21,7 +21,7 @@ public class UserConfiguration : IEntityTypeConfiguration<UserEntity>
         builder.Property(x => x.UserSurname)
             .HasMaxLength(User.MAX_NAME_LENGTH)
             .IsRequired();
-
+        
         builder.Property(x => x.PasswordHash)
             .IsRequired();
     }
