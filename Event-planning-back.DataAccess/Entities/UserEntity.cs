@@ -1,5 +1,4 @@
 namespace Event_planning_back.DataAccess.Entities;
-
 public class UserEntity
 {
     public Guid Id { get; set; }
