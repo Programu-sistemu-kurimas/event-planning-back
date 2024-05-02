@@ -1,4 +1,5 @@
 using Event_planning_back.Application.Services;
+using Event_planning_back.Core;
 using Event_planning_back.Core.Abstractions;
 using Event_planning_back.DataAccess;
 using Event_planning_back.DataAccess.Repositories;
@@ -20,6 +21,10 @@ builder.Services.AddDbContext<EventPlanningDbContext>(
 
 builder.Services.AddScoped<IUserService, UsersService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IJwtProvider, JwtProvider>();
+builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
+builder.Services.Configure<JwtOptions>(
+    builder.Configuration.GetSection("Jwt"));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -1,1 +1,24 @@
-GET http://localhost:5142/Users
+POST http://localhost:5142/Users/login
+Content-Type: application/json
+
+{
+  "email": "john@example.com",
+  "password": "password123"
+}
+
+###
+
+###
+POST http://localhost:5142/Users/register
+Content-Type: application/json
+
+{
+  "name": "John",
+  "surname": "Doe",
+  "password": "password123",
+  "email": "john@example.com"
+}
+
+###
+
+

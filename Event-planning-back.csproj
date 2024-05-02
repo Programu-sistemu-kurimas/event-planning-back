@@ -37,4 +37,10 @@
     <_ContentIncludedByDefault Remove="Event-planning-back.DataAccess\obj\Debug\net8.0\Event-planning-back.DataAccess.sourcelink.json" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="BCrypt.Net-Next">
+      <HintPath>..\..\..\..\.nuget\packages\bcrypt.net-next\4.0.3\lib\net6.0\BCrypt.Net-Next.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

@@ -1,6 +1,7 @@
 using Event_planning_back.Core.Abstractions;
 using Event_planning_back.Core.Models;
 using Event_planning_back.DataAccess.Entities;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 namespace Event_planning_back.DataAccess.Repositories;
@@ -68,5 +69,11 @@ public class UserRepository : IUserRepository
             .ExecuteDeleteAsync();
 
         return id;
+    }
+
+    public async Task<User> GetByEmail(string email)
+    {
+        var userEntity = await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Email == email) ?? throw new Exception();
+       return User.Create(userEntity.Id, userEntity.UserName, userEntity.UserSurname, userEntity.PasswordHash, userEntity.Email).User;
     }
 }

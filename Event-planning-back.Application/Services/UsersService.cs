@@ -1,5 +1,7 @@
 using Event_planning_back.Core.Abstractions;
 using Event_planning_back.Core.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Identity.Data;
 
 namespace Event_planning_back.Application.Services;
 
@@ -9,9 +11,15 @@ public class UsersService : IUserService
 {
     private readonly IUserRepository _userRepository;
 
-    public UsersService(IUserRepository userRepository)
+    private readonly IPasswordHasher _passwordHasher;
+
+    private readonly IJwtProvider _jwtProvider;
+
+    public UsersService(IUserRepository userRepository, IPasswordHasher passwordHasher, IJwtProvider jwtProvider)
     {
         _userRepository = userRepository;
+        _passwordHasher = passwordHasher;
+        _jwtProvider = jwtProvider;
     }
 
     public async Task<List<User>> GetAllUsers()
@@ -22,6 +30,30 @@ public class UsersService : IUserService
     public async Task<Guid> CreateUser(User user)
     {
         return await _userRepository.Create(user);
+    }
+
+    public async Task<Guid> Register(string userName, string userSurname, string password, string email)
+    {
+        var hashedPassword = _passwordHasher.Generate(password);
+        
+        var user = User.Create(Guid.NewGuid(), userName, userSurname, hashedPassword, email).User;
+
+        return await _userRepository.Create(user);
+    }
+
+    public async Task<string> Login(string email, string password)
+    {
+        var user = await _userRepository.GetByEmail(email);
+
+        var result = _passwordHasher.Verify(password, user.PasswordHash);
+        if (result == null)
+        {
+            throw new Exception("Failed to login");
+        }
+
+        var token = _jwtProvider.GenerateToken(user);
+
+        return token;
     }
     
 }
