@@ -35,6 +35,12 @@ public class UsersService : IUserService
 
     public async Task<Guid> Register(string userName, string userSurname, string password, string email)
     {
+        var existingUser = await _userRepository.GetByEmail(email);
+        
+        if (existingUser != null) 
+        {
+            return Guid.Empty;
+        }
         var hashedPassword = _passwordHasher.Generate(password);
         
         var user = User.Create(Guid.NewGuid(), userName, userSurname, hashedPassword, email).User;
@@ -47,9 +53,10 @@ public class UsersService : IUserService
         var user = await _userRepository.GetByEmail(email);
 
         var result = _passwordHasher.Verify(password, user.PasswordHash);
+        
         if (result == false)
         {
-            throw new Exception("Failed to login");
+            return null;
         }
 
         var token = _jwtProvider.GenerateToken(user);

@@ -24,7 +24,13 @@ public class UsersController(IUserService userService) : ControllerBase
     [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterUserRequest request)
     {
+        
         var response = await userService.Register(request.Name, request.Surname, request.Password, request.Email);
+        if (response.Equals(Guid.Empty))
+        {
+            return Conflict();
+        }
+        
         return  Ok(response);
         
     }
@@ -33,6 +39,11 @@ public class UsersController(IUserService userService) : ControllerBase
     public async Task<IActionResult> Login(LoginUserRequest request)
     {
         var response = await userService.Login(request.Email, request.Password);
+
+        if (response == null)
+        {
+            return Unauthorized();
+        }
         
         Response.Cookies.Append("AuthToken", response.Token);
         return Ok(response);
