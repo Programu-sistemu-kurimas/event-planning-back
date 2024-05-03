@@ -1,3 +1,4 @@
+using Event_planning_back.Contracts.Users;
 using Event_planning_back.Core.Abstractions;
 using Event_planning_back.Core.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -41,19 +42,19 @@ public class UsersService : IUserService
         return await _userRepository.Create(user);
     }
 
-    public async Task<string> Login(string email, string password)
+    public async Task<LoginUserResponse> Login(string email, string password)
     {
         var user = await _userRepository.GetByEmail(email);
 
         var result = _passwordHasher.Verify(password, user.PasswordHash);
-        if (result == null)
+        if (result == false)
         {
             throw new Exception("Failed to login");
         }
 
         var token = _jwtProvider.GenerateToken(user);
-
-        return token;
+        
+        return new LoginUserResponse(user.Id, user.UserName, user.UserSurname, user.Email, token);
     }
     
 }

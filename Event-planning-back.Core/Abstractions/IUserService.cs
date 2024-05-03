@@ -1,3 +1,4 @@
+using Event_planning_back.Contracts.Users;
 using Event_planning_back.Core.Models;
 
 namespace Event_planning_back.Core.Abstractions;
@@ -9,5 +10,5 @@ public interface IUserService
 
     Task<Guid> Register(string userName, string userSurname, string password, string email);
 
-    Task<string> Login(string email, string password);
+    Task<LoginUserResponse> Login(string email, string password);
 }

@@ -1,6 +1,6 @@
 using Event_planning_back.Core.Abstractions;
 
-namespace Event_planning_back.Core;
+namespace Event_planning_back.Core.Security;
 
 public class PasswordHasher : IPasswordHasher
 {

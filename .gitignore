@@ -3,6 +3,7 @@
 bin/
 obj/
 postgres-data
+.vs
 .idea
 /node_modules
 /wwwroot/node_modules

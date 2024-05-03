@@ -6,7 +6,7 @@ using Event_planning_back.Core.Models;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Event_planning_back.Core;
+namespace Event_planning_back.Core.Security;
 
 public class JwtProvider : IJwtProvider
 {
