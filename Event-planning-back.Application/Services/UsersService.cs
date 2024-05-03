@@ -52,6 +52,11 @@ public class UsersService : IUserService
     {
         var user = await _userRepository.GetByEmail(email);
 
+        if (user == null)
+        {
+            return null;
+        }
+
         var result = _passwordHasher.Verify(password, user.PasswordHash);
         
         if (result == false)

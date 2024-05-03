@@ -73,7 +73,13 @@ public class UserRepository : IUserRepository
 
     public async Task<User> GetByEmail(string email)
     {
-        var userEntity = await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Email == email) ?? throw new Exception();
-       return User.Create(userEntity.Id, userEntity.UserName, userEntity.UserSurname, userEntity.PasswordHash, userEntity.Email).User;
+        
+        var userEntity = await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Email == email);
+
+        if (userEntity == null)
+        {
+            return null;
+        }
+        return User.Create(userEntity.Id, userEntity.UserName, userEntity.UserSurname, userEntity.PasswordHash, userEntity.Email).User;
     }
 }
