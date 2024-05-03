@@ -1,6 +1,6 @@
-using Event_planning_back.Core.Models;
-
 namespace Event_planning_back.Core.Abstractions;
+
+using Models;
 
 public interface IJwtProvider
 {

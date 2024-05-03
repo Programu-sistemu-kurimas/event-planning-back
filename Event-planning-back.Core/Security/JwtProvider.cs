@@ -1,13 +1,12 @@
+namespace Event_planning_back.Core.Security;
+
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Event_planning_back.Core.Abstractions;
-using Event_planning_back.Core.Models;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-
-namespace Event_planning_back.Core.Security;
-
+using Models;
+using Abstractions;
 public class JwtProvider : IJwtProvider
 {
     private readonly JwtOptions _options;

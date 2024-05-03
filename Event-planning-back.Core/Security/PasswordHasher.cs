@@ -1,7 +1,5 @@
-using Event_planning_back.Core.Abstractions;
-
 namespace Event_planning_back.Core.Security;
-
+using Abstractions;
 public class PasswordHasher : IPasswordHasher
 {
     public string Generate(string password) =>
