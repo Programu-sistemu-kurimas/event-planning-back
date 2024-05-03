@@ -1,12 +1,9 @@
-using Event_planning_back.Contracts.Users;
-using Event_planning_back.Core.Abstractions;
-using Event_planning_back.Core.Models;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Identity.Data;
-
 namespace Event_planning_back.Application.Services;
 
-using Event_planning_back.DataAccess.Repositories;
+using Contracts.Users;
+using Core.Abstractions;
+using Core.Models;
+
 
 public class UsersService : IUserService
 {
