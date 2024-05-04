@@ -6,13 +6,20 @@ using Event_planning_back.DataAccess;
 using Event_planning_back.DataAccess.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 var jwtKey = builder.Configuration.GetSection("Jwt:SecretKey").Get<string>();
-// Add services to the container.
+var LocalhostCors = "_localhostCors";
 
+// Add services to the container.
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(LocalhostCors, builder =>
+       builder.SetIsOriginAllowed(origin => new Uri(origin).Host.EndsWith("localhost"))
+              .AllowAnyHeader()
+              .AllowAnyMethod());
+});
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -59,6 +66,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseCors(LocalhostCors);
 }
 
 app.UseHttpsRedirection();
