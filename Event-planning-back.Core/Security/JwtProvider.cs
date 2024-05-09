@@ -34,4 +34,17 @@ public class JwtProvider : IJwtProvider
         return tokenValue;
     }
 
+    public Guid GetUserId(string token)
+    {  
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var jwtToken = tokenHandler.ReadJwtToken(token);
+        var userIdString = jwtToken.Claims.FirstOrDefault(c => c.Type == "userId")?.Value;
+
+        if (Guid.TryParse(userIdString, out Guid userId))
+        {
+            return userId;
+        }
+        return Guid.Empty;
+
+    }
 }

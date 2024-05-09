@@ -34,6 +34,8 @@ builder.Services.AddScoped<IUserService, UsersService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IJwtProvider, JwtProvider>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
+builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
+builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.Configure<JwtOptions>(
     builder.Configuration.GetSection("Jwt"));
 

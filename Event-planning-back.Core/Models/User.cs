@@ -9,10 +9,12 @@ public class User
         UserSurname = userSurname;
         PasswordHash = passwordHash;
         Email = email;
+        Projects = new List<Project>();
     }
 
-    public Guid Id { get; set; }
+    public Guid Id { get; private set; }
     
+    public ICollection<Project> Projects { get; private set; }
     public string UserName { get; private set; }
     
     public string UserSurname { get; private set; }
@@ -23,7 +25,7 @@ public class User
     public string Email { get; private set; }
 
 
-    public static (User User, string Error) Create(Guid id, string userName, string userSurename, string passwordHash, string email)
+    public static (User User, string Error) Create(Guid id, string userName, string userSurname, string passwordHash, string email)
     {
 
         var error = string.Empty;
@@ -31,7 +33,7 @@ public class User
         {
             error = "Email must not be empty"; 
         }
-        var User =  new User(id, userName, userSurename, passwordHash, email);
+        var User =  new User(id, userName, userSurname, passwordHash, email);
 
         return (User, error);
 

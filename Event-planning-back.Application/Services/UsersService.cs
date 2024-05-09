@@ -25,11 +25,6 @@ public class UsersService : IUserService
         return await _userRepository.Get();
     }
 
-    public async Task<Guid> CreateUser(User user)
-    {
-        return await _userRepository.Create(user);
-    }
-
     public async Task<Guid> Register(string userName, string userSurname, string password, string email)
     {
         var existingUser = await _userRepository.GetByEmail(email);
