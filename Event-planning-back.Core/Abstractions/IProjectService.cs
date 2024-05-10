@@ -7,5 +7,11 @@ public interface IProjectService
 {
     Task<Guid> CreateProject(string projectName, string projectDesc, Guid userId);
 
-    Task<bool> SetUserRole(Project project, User user, Role role);
+    Task<bool> SetUserRole(Guid userAdminId, Guid userId, Guid projectId, Role role);
+
+    Task<Guid> AddUserToProject(string userEmail, Guid projectId);
+
+    Task<Project?> GetById(Guid userId, Guid projectId);
+
+    Task<Role> GetUserRole(Guid userId, Guid projectId);
 }

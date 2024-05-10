@@ -11,6 +11,15 @@ public class User
         Email = email;
         Projects = new List<Project>();
     }
+    private User(Guid id, string userName, string userSurname, string passwordHash, string email, List<Project> projects)
+    {
+        Id = id;
+        UserName = userName;
+        UserSurname = userSurname;
+        PasswordHash = passwordHash;
+        Email = email;
+        Projects = projects;
+    }
 
     public Guid Id { get; private set; }
     
@@ -33,9 +42,24 @@ public class User
         {
             error = "Email must not be empty"; 
         }
-        var User =  new User(id, userName, userSurname, passwordHash, email);
+        var user =  new User(id, userName, userSurname, passwordHash, email);
 
-        return (User, error);
+        return (user, error);
 
     }
+    public static (User User, string Error) Create(Guid id, string userName, string userSurname, string passwordHash, string email, List<Project> projects)
+    {
+
+        var error = string.Empty;
+        if (string.IsNullOrEmpty(email)) // Add more validations if necessary
+        {
+            error = "Email must not be empty"; 
+        }
+        var user =  new User(id, userName, userSurname, passwordHash, email, projects);
+
+        return (user, error);
+
+    }
+    
+    
 }

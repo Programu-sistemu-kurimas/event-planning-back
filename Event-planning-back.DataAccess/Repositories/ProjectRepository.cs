@@ -1,3 +1,4 @@
+using System.Dynamic;
 using Event_planning_back.Core.Abstractions;
 using Event_planning_back.Core.Security;
 using Microsoft.EntityFrameworkCore;
@@ -16,9 +17,9 @@ public class ProjectRepository : IProjectRepository
         this._context = context;
     }
 
-    public async Task<Guid> Create(Project project)
+    public async Task<Guid> Create(Project project, User user)
     {
-        var userEntity = await _context.Users.FirstOrDefaultAsync(u => u.Id == project.Author.Id);
+        var userEntity = await _context.Users.FindAsync(user.Id);
 
         if (userEntity == null)
             return Guid.Empty;
@@ -48,6 +49,58 @@ public class ProjectRepository : IProjectRepository
         await _context.SaveChangesAsync();
         
         return true;
+    }
+
+    public async Task<Guid> AddUser(Project project, User user)
+    {
+        var userEntity = await _context.Users.FindAsync(user.Id);
+        var projectEntity = await _context.Projects.FindAsync(project.Id);
+        
+        
+        if (userEntity == null || projectEntity == null)
+            return Guid.Empty;
+        
+        projectEntity.Users.Add(userEntity);
+
+        await _context.SaveChangesAsync();
+
+        return projectEntity.Id;
+    }
+
+    public async Task<Project?> GetById(Guid id)
+    {
+        var projectEntity = await _context.Projects
+            .Include(p => p.Users)
+            .FirstOrDefaultAsync(p => p.Id == id);
+
+        if (projectEntity == null)
+            return null;
+
+        var workers = projectEntity.Users.Select(u => User.Create(
+            u.Id,
+            u.UserName,
+            u.UserSurname,
+            u.PasswordHash,
+            u.Email).User).ToList();
+        
+        return Project.Create(projectEntity.Id, 
+            projectEntity.ProjectName, 
+            projectEntity.Description, 
+            workers);
+
+    }
+
+    public async Task<Role> GetRole(Project project, User user)
+    {
+        var userProjectEntity = await _context.UserProject.FindAsync(user.Id, project.Id);
+        
+        if (userProjectEntity == null)
+            return Role.User;
+        
+        var role = (Role)Enum.Parse(typeof(Role), userProjectEntity.Role);
+        
+        return role;
+
     }
 }
 

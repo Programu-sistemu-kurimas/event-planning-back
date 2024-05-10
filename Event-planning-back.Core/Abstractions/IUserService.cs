@@ -10,4 +10,6 @@ public interface IUserService
     Task<Guid> Register(string userName, string userSurname, string password, string email);
 
     Task<LoginUserResponse?> Login(string email, string password);
+    
+    Task<List<Project>?> GetProjects(Guid userId);
 }

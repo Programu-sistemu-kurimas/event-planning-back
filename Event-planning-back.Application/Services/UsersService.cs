@@ -60,5 +60,9 @@ public class UsersService : IUserService
         
         return new LoginUserResponse(user.Id, user.UserName, user.UserSurname, user.Email, token);
     }
-    
+
+    public async Task<List<Project>?> GetProjects(Guid userId)
+    {
+        return await _userRepository.GetProjects(userId);
+    }
 }

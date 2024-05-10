@@ -6,7 +6,7 @@ POST http://localhost:5142/Users/login
 Content-Type: application/json
 
 {
-  "email": "john@example.com",
+  "email": "Anton@gmail.com",
   "password": "password123"
 }
 
@@ -17,10 +17,10 @@ POST http://localhost:5142/Users/register
 Content-Type: application/json
 
 {
-  "name": "John",
-  "surname": "Doe",
+  "name": "Anton",
+  "surname": "Vaicikevic",
   "password": "password123",
-  "email": "john@example.com"
+  "email": "Anton@gmail.com"
 }
 
 ###
@@ -28,7 +28,37 @@ POST http://localhost:5142/Projects/create
 Content-Type: application/json
 
 {
-  "projectName": "project2",
-  "projectDescription": "Test 7"
+  "projectName": "project5",
+  "projectDescription": "Test 1"
 }
 
+###
+
+POST http://localhost:5142/Projects/addUser
+Content-Type: application/json
+
+{
+  "email": "john@example.com",
+  "projectId": "1c4c634b-10c0-424a-9700-36f01cda3e26"
+}
+
+
+###
+GET http://localhost:5142/Projects/8ecc0a57-b3ca-4cb9-8db7-415367583353
+Accept: application/json
+
+###
+
+GET http://localhost:5142/Users/projects
+Accept: application/json
+
+
+###
+POST http://localhost:5142/Projects/setRole
+Content-Type: application/json
+
+{
+  "userId": "f52d134c-62d7-4f47-b15a-f793d26e4e0e",
+  "projectId":"1c4c634b-10c0-424a-9700-36f01cda3e26",
+  "role": "Admin"
+}
