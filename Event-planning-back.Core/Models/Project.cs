@@ -18,9 +18,18 @@ public class Project
         Description = description;
         Workers = workers;
     }
+    private Project(Guid id, string projectName, string description, List<User> workers, List<Task> tasks)
+    {
+        Id = id;
+        ProjectName = projectName;
+        Description = description;
+        Workers = workers;
+        Tasks = tasks;
+    }
     
     public Guid Id { get; private set; }
-    
+
+    public ICollection<Task> Tasks { get; private set; } = new List<Task>();
     public string ProjectName { get; private set; }
 
     public string Description { get; private set; }
@@ -37,4 +46,10 @@ public class Project
     {
         return new Project(id, projectName, description, workers);
     }
+    public static Project Create(Guid id, string projectName, string description, List<User> workers, List<Task> tasks)
+    {
+        return new Project(id, projectName, description, workers, tasks);
+    }
+    
+    
 }

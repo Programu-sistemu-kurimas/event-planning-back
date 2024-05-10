@@ -1,4 +1,5 @@
 using System.Dynamic;
+using Event_planning_back.Contracts.Task;
 using Event_planning_back.Core.Abstractions;
 using Event_planning_back.Core.Security;
 using Microsoft.EntityFrameworkCore;
@@ -40,7 +41,8 @@ public class ProjectRepository : IProjectRepository
 
     public async Task<bool> AddRole(Project project, User user, Role role)
     {
-        var userProject = await _context.UserProject.FindAsync(user.Id, project.Id);
+        var userProject = await _context.UserProject
+            .FindAsync(user.Id, project.Id);
 
         if (userProject == null)
             return false;
@@ -71,6 +73,7 @@ public class ProjectRepository : IProjectRepository
     {
         var projectEntity = await _context.Projects
             .Include(p => p.Users)
+            .Include(p => p.Tasks)
             .FirstOrDefaultAsync(p => p.Id == id);
 
         if (projectEntity == null)
@@ -82,11 +85,18 @@ public class ProjectRepository : IProjectRepository
             u.UserSurname,
             u.PasswordHash,
             u.Email).User).ToList();
+
+        var tasks = projectEntity.Tasks.Select(t =>
+        {
+            var state = (State)Enum.Parse(typeof(State), t.TaskState);
+            return Task.Create(t.Id, t.TaskName, t.Description, state);
+        }).ToList();
         
         return Project.Create(projectEntity.Id, 
             projectEntity.ProjectName, 
             projectEntity.Description, 
-            workers);
+            workers,
+            tasks);
 
     }
 

@@ -60,19 +60,11 @@ public class ProjectService : IProjectService
         return projectId;
     }
 
-    public async Task<Project?> GetById(Guid userId, Guid projectId)
+    public async Task<Project?> GetById(Guid projectId)
     {
         var project = await _projectRepository.GetById(projectId);
-        if (project == null)
-            return null;
         
-        var user = project.Workers.FirstOrDefault(u => u.Id == userId);
-
-        if (user == null)
-            return null;
-
-        return project;
-
+        return project ?? null;
     }
 
     public async Task<Role> GetUserRole(Guid userId, Guid projectId)
@@ -84,5 +76,17 @@ public class ProjectService : IProjectService
             return Role.User;
         
         return await _projectRepository.GetRole(project, user);
+    }
+
+    public async Task<bool> AsserRole(Guid userId, Guid projectId, Role role)
+    {
+        var user = await _userRepository.GetByIdWithoutProjects(userId);
+        var project = await _projectRepository.GetById(projectId);
+        if (project == null || user == null)
+            return false;
+       
+        var trueRole = await _projectRepository.GetRole(project, user);
+        
+        return role == trueRole;
     }
 }

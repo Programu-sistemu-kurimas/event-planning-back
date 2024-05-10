@@ -1,6 +1,6 @@
 namespace Event_planning_back.Contracts.Project;
 
-public record UserListResponce(
+public record UserResponseList(
     Guid Id,
     string Name,
     string Surname,

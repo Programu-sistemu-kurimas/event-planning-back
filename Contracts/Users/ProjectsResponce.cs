@@ -6,4 +6,6 @@ public record ProjectResponse(
     Guid Id,
     string ProjectName,
     string Description,
-    List<UserListResponce> Workers);
+    List<UserResponseList> Workers,
+    List<TaskResponseList> Tasks
+    );

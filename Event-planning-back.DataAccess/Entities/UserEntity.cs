@@ -12,5 +12,7 @@ public class UserEntity
     public string PasswordHash { get;  set; }  = string.Empty;
     public string Email { get;   set; }  = string.Empty;
 
+    public ICollection<TaskEntity> Tasks { get; set; } = new List<TaskEntity>();
+
     public ICollection<ProjectEntity> Projects { get; private set; } = new List<ProjectEntity>();
 }

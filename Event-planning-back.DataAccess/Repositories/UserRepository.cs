@@ -89,11 +89,13 @@ public class UserRepository : IUserRepository
 
         return id;
     }
-
+    
     public async Task<User?> GetByEmail(string email)
     {
         
-        var userEntity = await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Email == email);
+        var userEntity = await _context.Users
+            .AsNoTracking()
+            .FirstOrDefaultAsync(u => u.Email == email);
 
         if (userEntity == null)
         {

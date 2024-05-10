@@ -5,7 +5,7 @@ using Event_planning_back.Core.Models;
 using Event_planning_back.Core.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using Task = System.Threading.Tasks.Task;
 
 namespace Event_planning_back.Controllers;
 
@@ -15,13 +15,13 @@ public class ProjectsController : ControllerBase
 {
     private readonly IProjectService _projectService;
     private readonly IJwtProvider _jwtProvider;
-    private readonly IUserService _userService;
+    private readonly ITaskService _taskService;
 
-    public ProjectsController(IProjectService projectService, IJwtProvider jwtProvider, IUserService userService)
+    public ProjectsController(IProjectService projectService, IJwtProvider jwtProvider, IUserService userService, ITaskRepository taskRepository, ITaskService taskService)
     {
         _projectService = projectService;
         _jwtProvider = jwtProvider;
-        _userService = userService;
+        _taskService = taskService;
     }
     [Authorize]
     [HttpPost("create")]
@@ -83,7 +83,7 @@ public class ProjectsController : ControllerBase
         
         var userId = _jwtProvider.GetUserId(token);
         
-        var project = await _projectService.GetById(userId, projectId);
+        var project = await _projectService.GetById(projectId);
 
         
         if (project == null)
@@ -91,22 +91,31 @@ public class ProjectsController : ControllerBase
         
         
         var workersListTasks = project.Workers.Select(w => GetUserListResponseAsync(w, projectId));
+        
         var workers = await Task.WhenAll(workersListTasks);
+        var tasks = project.Tasks
+            .Select(t => new TaskResponseList(t.Id, 
+                t.TaskName, 
+                t.Description, 
+                t.TaskState.ToString()))
+            .ToList();
+        
         var response = new ProjectResponse
         (
             project.Id,
             project.ProjectName,
             project.Description,
-            workers.ToList()
+            workers.ToList(),
+            tasks
         );
 
         return Ok(response);
     }
-    private async Task<UserListResponce> GetUserListResponseAsync(User user, Guid projectId)
+    private async Task<UserResponseList> GetUserListResponseAsync(User user, Guid projectId)
     {
         var role = await _projectService.GetUserRole(user.Id, projectId);
         
-        return new UserListResponce
+        return new UserResponseList
         (
             user.Id,
             user.UserName,
@@ -115,6 +124,9 @@ public class ProjectsController : ControllerBase
             role.ToString()
         );
     }
+
+   
+    
     
 }
 
