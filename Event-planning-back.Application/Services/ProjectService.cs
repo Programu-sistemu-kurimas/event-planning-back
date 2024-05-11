@@ -19,7 +19,7 @@ public class ProjectService : IProjectService
     
     public async Task<Guid> CreateProject (string projectName, string projectDesc, Guid userId)
     {
-        var user = await _userRepository.GetByIdWithProjects(userId);
+        var user = await _userRepository.GetById(userId);
         if (user == null)
             return Guid.Empty;
 
@@ -33,8 +33,8 @@ public class ProjectService : IProjectService
 
     public async Task<bool> SetUserRole(Guid userAdminId, Guid userId, Guid projectId, Role role)
     {
-        var admin =await _userRepository.GetByIdWithoutProjects(userAdminId);
-        var user = await _userRepository.GetByIdWithoutProjects(userId);
+        var admin =await _userRepository.GetById(userAdminId);
+        var user = await _userRepository.GetById(userId);
         var project =await _projectRepository.GetById(projectId);
 
         if (project == null || user == null || admin == null)
@@ -67,20 +67,14 @@ public class ProjectService : IProjectService
         return project ?? null;
     }
 
-    public async Task<Role> GetUserRole(Guid userId, Guid projectId)
+    public async Task<Role> GetUserRole(User user, Project project)
     {
-        var user = await _userRepository.GetByIdWithoutProjects(userId);
-        var project = await _projectRepository.GetById(projectId);
-        
-        if (user == null || project == null)
-            return Role.User;
-        
         return await _projectRepository.GetRole(project, user);
     }
 
     public async Task<bool> AsserRole(Guid userId, Guid projectId, Role role)
     {
-        var user = await _userRepository.GetByIdWithoutProjects(userId);
+        var user = await _userRepository.GetById(userId);
         var project = await _projectRepository.GetById(projectId);
         if (project == null || user == null)
             return false;

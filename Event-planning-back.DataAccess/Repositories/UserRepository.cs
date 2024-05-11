@@ -26,20 +26,7 @@ public class UserRepository : IUserRepository
         return users;
     }
 
-    public async Task<User?> GetByIdWithoutProjects(Guid id)
-    {
-        var userEntity = await _context.Users.FindAsync(id);
-       
-        if (userEntity == null)
-        {
-            return null;
-        }
-
-        return User.Create(userEntity.Id, userEntity.UserName, userEntity.UserSurname, userEntity.PasswordHash,
-            userEntity.Email).User;
-    }
-
-    public async Task<User?> GetByIdWithProjects(Guid id)
+    public async Task<User?> GetById(Guid id)
     {
         var userEntity = await _context.Users.FindAsync(id);
         var projects = await GetProjects(id);

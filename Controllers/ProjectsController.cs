@@ -90,9 +90,21 @@ public class ProjectsController : ControllerBase
             return NotFound();
         
         
-        var workersListTasks = project.Workers.Select(w => GetUserListResponseAsync(w, projectId));
+        var workersList = await Task.WhenAll(project.Workers.Select( async w => 
+        {
+            var role = await _projectService.GetUserRole(w, project);
+            return new UserResponseList
+            (
+                w.Id,
+                w.UserName,
+                w.UserSurname,
+                w.Email,
+                role.ToString()
+            );
+        }));
         
-        var workers = await Task.WhenAll(workersListTasks);
+        
+        
         var tasks = project.Tasks
             .Select(t => new TaskResponseList(t.Id, 
                 t.TaskName, 
@@ -105,24 +117,11 @@ public class ProjectsController : ControllerBase
             project.Id,
             project.ProjectName,
             project.Description,
-            workers.ToList(),
+            workersList.ToList(),
             tasks
         );
 
         return Ok(response);
-    }
-    private async Task<UserResponseList> GetUserListResponseAsync(User user, Guid projectId)
-    {
-        var role = await _projectService.GetUserRole(user.Id, projectId);
-        
-        return new UserResponseList
-        (
-            user.Id,
-            user.UserName,
-            user.UserSurname,
-            user.Email,
-            role.ToString()
-        );
     }
 
    
