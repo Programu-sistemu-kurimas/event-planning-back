@@ -16,11 +16,11 @@ public class UserConfiguration : IEntityTypeConfiguration<UserEntity>
             .IsRequired();
 
         builder.Property(x => x.UserName)
-            .HasMaxLength(User.MAX_NAME_LENGTH)
+            .HasMaxLength(User.MaxNameLength)
             .IsRequired();
 
         builder.Property(x => x.UserSurname)
-            .HasMaxLength(User.MAX_NAME_LENGTH)
+            .HasMaxLength(User.MaxNameLength)
             .IsRequired();
         
         builder.Property(x => x.PasswordHash)

@@ -15,6 +15,8 @@ public class EventPlanningDbContext : DbContext
     public DbSet<ProjectEntity> Projects { get; set; }
     public DbSet<UserProjectEntity> UserProject { get; set; }
     
+    public DbSet<GuestEntity> Guests { get; set; }
+    
     public DbSet<TaskEntity> Tasks { get; set; }
     
     public DbSet<UserTaskEntity> UserTask { get; set; }
@@ -42,5 +44,10 @@ public class EventPlanningDbContext : DbContext
         modelBuilder.Entity<TaskEntity>()
             .Property(t => t.Description)
             .IsRequired(false);
+
+        modelBuilder.Entity<GuestEntity>()
+            .HasOne(g => g.Project)
+            .WithMany(p => p.Guests)
+            .HasForeignKey(g => g.ProjectId);
     }
 }

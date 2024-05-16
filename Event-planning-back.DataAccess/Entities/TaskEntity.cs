@@ -18,7 +18,7 @@ namespace Event_planning_back.DataAccess.Entities
 
         public Guid ProjectId { get; set; } = Guid.Empty;
 
-        public ProjectEntity Project { get; set; }
+        public ProjectEntity Project { get; set; } = new ProjectEntity();
 
         public ICollection<UserEntity> AssignedUsers { get; set; } = new List<UserEntity>();
     }

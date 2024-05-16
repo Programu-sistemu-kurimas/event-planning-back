@@ -12,11 +12,11 @@ public class ProjectConfiguration : IEntityTypeConfiguration<ProjectEntity>
         builder.HasKey(p => p.Id);
 
         builder.Property(p => p.Description)
-            .HasMaxLength(Project.MAX_DESCRIPTION_LENGHT)
+            .HasMaxLength(Project.MaxDescriptionLenght)
             .IsRequired();
 
         builder.Property(p => p.ProjectName)
-            .HasMaxLength(Project.MAX_PROJECTNAME_LENGHT)
+            .HasMaxLength(Project.MaxProjectnameLenght)
             .IsRequired();
         
     }

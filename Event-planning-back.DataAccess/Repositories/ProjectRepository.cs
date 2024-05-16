@@ -100,6 +100,21 @@ public class ProjectRepository : IProjectRepository
 
     }
 
+    public async Task<List<Guest>?> GetGuests(Guid projectId)
+    {
+        var projectEntity = await _context.Projects
+            .Include(p => p.Guests)
+            .FirstOrDefaultAsync(p => p.Id == projectId);
+
+
+        return projectEntity?.Guests.Select(g => 
+                Guest.Create(
+                    g.Id, 
+                    g.Name, 
+                    g.Surname))
+            .ToList();
+    }
+
     public async Task<Role> GetRole(Project project, User user)
     {
         var userProjectEntity = await _context.UserProject.FindAsync(user.Id, project.Id);

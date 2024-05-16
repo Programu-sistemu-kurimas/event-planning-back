@@ -2,8 +2,8 @@ namespace Event_planning_back.Core.Models;
 
 public class Project
 {
-    public const int MAX_DESCRIPTION_LENGHT = 350;
-    public const int MAX_PROJECTNAME_LENGHT = 100;
+    public const int MaxDescriptionLenght = 350;
+    public const int MaxProjectnameLenght = 100;
     private Project(Guid id, string projectName, string description)
     {
         Id = id;
@@ -27,6 +27,16 @@ public class Project
         Tasks = tasks;
     }
     
+    private Project(Guid id, string projectName, string description, List<User> workers, List<Task> tasks, List<Guest> guests)
+    {
+        Id = id;
+        ProjectName = projectName;
+        Description = description;
+        Workers = workers;
+        Tasks = tasks;
+        Guests = guests;
+    }
+    
     public Guid Id { get; private set; }
 
     public ICollection<Task> Tasks { get; private set; } = new List<Task>();
@@ -36,7 +46,8 @@ public class Project
 
     
     public ICollection<User> Workers { get; private set; }
-
+    
+    public ICollection<Guest> Guests { get; private set; }
     public static Project Create(Guid id, string projectName, string description)
     {
         return new Project(id, projectName, description);
@@ -50,6 +61,9 @@ public class Project
     {
         return new Project(id, projectName, description, workers, tasks);
     }
-    
+    public static Project Create(Guid id, string projectName, string description, List<User> workers, List<Task> tasks, List<Guest> guests)
+    {
+        return new Project(id, projectName, description, workers, tasks, guests);
+    }
     
 }

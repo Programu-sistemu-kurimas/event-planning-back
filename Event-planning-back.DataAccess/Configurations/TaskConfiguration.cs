@@ -12,9 +12,9 @@ public class TaskConfiguration: IEntityTypeConfiguration<TaskEntity>
         builder.Property(t => t.AssignedUsers)
             .IsRequired(false);
         builder.Property(t => t.Description)
-            .HasMaxLength(Task.MAX_TASKDESC_LENGTH);
+            .HasMaxLength(Task.MaxTaskdescLength);
 
         builder.Property(t => t.TaskName)
-            .HasMaxLength(Task.MAX_TASKNAME_LENGTH);
+            .HasMaxLength(Task.MaxTasknameLength);
     }
 }

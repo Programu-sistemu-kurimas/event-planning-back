@@ -11,6 +11,7 @@ public interface IProjectRepository
     Task<bool> AddRole(Project project, User user, Role role);
     Task<Project?> GetById(Guid id);
     Task<Role> GetRole(Project project, User user);
+    Task<List<Guest>?> GetGuests(Guid projectId);
 
 
 }

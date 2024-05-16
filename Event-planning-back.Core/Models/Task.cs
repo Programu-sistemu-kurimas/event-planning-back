@@ -4,8 +4,8 @@ namespace Event_planning_back.Core.Models;
 
 public class Task
 {
-    public const int MAX_TASKNAME_LENGTH = 100;
-    public const int MAX_TASKDESC_LENGTH = 500;
+    public const int MaxTasknameLength = 100;
+    public const int MaxTaskdescLength = 500;
     private Task(Guid id, string taskName, string description, ICollection<User> users)
     {
         Id = id;

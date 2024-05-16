@@ -16,4 +16,6 @@ public interface IProjectService
     Task<bool> AsserRole(Guid userId, Guid projectId, Role role);
 
     Task<Role> GetUserRole(User user, Project project);
+
+    Task<List<Guest>?> GetGuests(Guid projectId);
 }

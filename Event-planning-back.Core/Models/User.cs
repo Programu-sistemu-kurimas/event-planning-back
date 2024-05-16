@@ -1,7 +1,7 @@
 namespace Event_planning_back.Core.Models;
 public class User
 {
-    public const int MAX_NAME_LENGTH = 50;
+    public const int MaxNameLength = 50;
     private User(Guid id, string userName, string userSurname, string passwordHash, string email)
     {
         Id = id;
