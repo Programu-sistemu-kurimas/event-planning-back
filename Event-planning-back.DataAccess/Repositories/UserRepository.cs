@@ -29,14 +29,16 @@ public class UserRepository : IUserRepository
     public async Task<User?> GetById(Guid id)
     {
         var userEntity = await _context.Users.FindAsync(id);
-        if (userEntity == null)
+        var projects = await GetProjects(id);
+
+        if (userEntity == null || projects == null)
         {
             return null;
         }
+        
         return User.Create(userEntity.Id, userEntity.UserName, userEntity.UserSurname, userEntity.PasswordHash,
-            userEntity.Email).User;
+            userEntity.Email, projects).User;
     }
-
     public async Task<Guid> Create(User user)
     {
         var userEntity = new UserEntity
@@ -74,16 +76,37 @@ public class UserRepository : IUserRepository
 
         return id;
     }
-
+    
     public async Task<User?> GetByEmail(string email)
     {
         
-        var userEntity = await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Email == email);
+        var userEntity = await _context.Users
+            .AsNoTracking()
+            .FirstOrDefaultAsync(u => u.Email == email);
 
         if (userEntity == null)
         {
             return null;
         }
         return User.Create(userEntity.Id, userEntity.UserName, userEntity.UserSurname, userEntity.PasswordHash, userEntity.Email).User;
+    }
+
+    public async Task<List<Project>?> GetProjects(Guid userId)
+    {
+        var userEntity = await _context.Users
+            .Include(u => u.Projects)
+            .FirstOrDefaultAsync(u => u.Id == userId);
+        
+        if (userEntity == null)
+            return null;
+        
+        var projects = userEntity.Projects.Select(p => Project.Create(
+            p.Id,
+            p.ProjectName,
+            p.Description
+        )).ToList();
+
+        return projects;
+
     }
 }

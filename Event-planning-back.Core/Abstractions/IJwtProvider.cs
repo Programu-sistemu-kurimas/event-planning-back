@@ -5,5 +5,6 @@ using Models;
 public interface IJwtProvider
 {
     string GenerateToken(User user);
-    
+    Guid GetUserId(string token);
+
 }

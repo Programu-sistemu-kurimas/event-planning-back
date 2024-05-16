@@ -3,6 +3,7 @@ using System;
 using Event_planning_back.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Event_planning_back.Migrations
 {
     [DbContext(typeof(EventPlanningDbContext))]
-    partial class EventPlanningDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240509214241_ProjectUser")]
+    partial class ProjectUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,33 +42,6 @@ namespace Event_planning_back.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Projects");
-                });
-
-            modelBuilder.Entity("Event_planning_back.DataAccess.Entities.TaskEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("ProjectId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("TaskName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("TaskState")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProjectId");
-
-                    b.ToTable("Tasks");
                 });
 
             modelBuilder.Entity("Event_planning_back.DataAccess.Entities.UserEntity", b =>
@@ -113,32 +89,6 @@ namespace Event_planning_back.Migrations
                     b.ToTable("UserProject");
                 });
 
-            modelBuilder.Entity("Event_planning_back.DataAccess.Entities.UserTaskEntity", b =>
-                {
-                    b.Property<Guid>("AssignedUsersId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("TasksId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("AssignedUsersId", "TasksId");
-
-                    b.HasIndex("TasksId");
-
-                    b.ToTable("UserTask");
-                });
-
-            modelBuilder.Entity("Event_planning_back.DataAccess.Entities.TaskEntity", b =>
-                {
-                    b.HasOne("Event_planning_back.DataAccess.Entities.ProjectEntity", "Project")
-                        .WithMany("Tasks")
-                        .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Project");
-                });
-
             modelBuilder.Entity("Event_planning_back.DataAccess.Entities.UserProjectEntity", b =>
                 {
                     b.HasOne("Event_planning_back.DataAccess.Entities.ProjectEntity", null)
@@ -152,26 +102,6 @@ namespace Event_planning_back.Migrations
                         .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Event_planning_back.DataAccess.Entities.UserTaskEntity", b =>
-                {
-                    b.HasOne("Event_planning_back.DataAccess.Entities.UserEntity", null)
-                        .WithMany()
-                        .HasForeignKey("AssignedUsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Event_planning_back.DataAccess.Entities.TaskEntity", null)
-                        .WithMany()
-                        .HasForeignKey("TasksId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Event_planning_back.DataAccess.Entities.ProjectEntity", b =>
-                {
-                    b.Navigation("Tasks");
                 });
 #pragma warning restore 612, 618
         }

@@ -6,7 +6,7 @@ POST http://localhost:5142/Users/login
 Content-Type: application/json
 
 {
-  "email": "john@example.com",
+  "email": "Anton@gmail.com",
   "password": "password123"
 }
 
@@ -17,12 +17,72 @@ POST http://localhost:5142/Users/register
 Content-Type: application/json
 
 {
-  "name": "John",
-  "surname": "Doe",
+  "name": "Anton",
+  "surname": "Vaicikevic",
   "password": "password123",
-  "email": "john@example.com"
+  "email": "Anton@gmail.com"
+}
+
+###
+POST http://localhost:5142/Projects/create
+Content-Type: application/json
+
+{
+  "projectName": "project6",
+  "projectDescription": "Test 1"
 }
 
 ###
 
+POST http://localhost:5142/Projects/addUser
+Content-Type: application/json
 
+{
+  "email": "john@example.com",
+  "projectId": "5c824f90-e46c-4a31-92f4-2337bef8836c"
+}
+
+
+###
+GET http://localhost:5142/Projects/5c824f90-e46c-4a31-92f4-2337bef8836c
+Accept: application/json
+
+###
+
+GET http://localhost:5142/Users/projects
+Accept: application/json
+
+
+###
+POST http://localhost:5142/Projects/setRole
+Content-Type: application/json
+
+{
+  "userId": "f52d134c-62d7-4f47-b15a-f793d26e4e0e",
+  "projectId":"5c824f90-e46c-4a31-92f4-2337bef8836c",
+  "role": "Admin"
+}
+
+
+###
+POST http://localhost:5142/Task/create
+Content-Type: application/json
+
+{
+  "projectId": "5c824f90-e46c-4a31-92f4-2337bef8836c",
+  "taskName": "Task 4"
+}
+
+###
+GET http://localhost:5142/Task/8e4ebc38-0427-4f77-82fa-bee3d58cf063
+Accept: application/json
+
+
+###
+POST http://localhost:5142/Task/AddUser
+Content-Type: application/json
+
+{
+  "userId": "f52d134c-62d7-4f47-b15a-f793d26e4e0e",
+  "taskId": "8e4ebc38-0427-4f77-82fa-bee3d58cf063"
+}
