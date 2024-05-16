@@ -1,5 +1,6 @@
 using Event_planning_back.Core.Models;
 using Event_planning_back.Core.Security;
+using Task = System.Threading.Tasks.Task;
 
 namespace Event_planning_back.Application.Services;
 
@@ -87,5 +88,10 @@ public class ProjectService : IProjectService
     public async Task<List<Guest>?> GetGuests(Guid projectId)
     {
         return await _projectRepository.GetGuests(projectId);
+    }
+
+    public async Task<bool> DeleteProject(Guid projectId, Guid userId)
+    {
+        return await _projectRepository.Delete(projectId);
     }
 }

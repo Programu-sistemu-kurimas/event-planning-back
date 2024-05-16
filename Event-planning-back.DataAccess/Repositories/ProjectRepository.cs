@@ -127,5 +127,17 @@ public class ProjectRepository : IProjectRepository
         return role;
 
     }
+
+    public async Task<bool> Delete(Guid projectId)
+    {
+        var projectEntity = await _context.Projects.FindAsync(projectId);
+        if (projectEntity == null)
+            return false;
+        
+        _context.Projects.Remove(projectEntity);
+        await _context.SaveChangesAsync();
+
+        return true;
+    }
 }
 

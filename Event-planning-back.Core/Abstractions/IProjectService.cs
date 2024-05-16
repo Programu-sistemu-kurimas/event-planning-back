@@ -18,4 +18,6 @@ public interface IProjectService
     Task<Role> GetUserRole(User user, Project project);
 
     Task<List<Guest>?> GetGuests(Guid projectId);
+
+    Task<bool> DeleteProject(Guid projectId, Guid userId);
 }

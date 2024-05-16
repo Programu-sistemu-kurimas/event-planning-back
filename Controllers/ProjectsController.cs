@@ -141,6 +141,26 @@ public class ProjectsController : ControllerBase
 
     }
 
+    [Authorize]
+    [HttpDelete("{projectId:guid}")]
+    public async Task<IActionResult> DeleteProject(Guid projectId)
+    {
+        var token = Request.Cookies["AuthToken"];
+        if (token == null)
+            return Unauthorized();
+        var userId = _jwtProvider.GetUserId(token);
+
+        if (!await _projectService.AsserRole(userId, projectId, Role.Owner))
+            return Forbid();
+        
+        
+        if (!await _projectService.DeleteProject(projectId, userId))
+            return NotFound();
+        
+        return NoContent();
+
+    }
+
    
     
     
