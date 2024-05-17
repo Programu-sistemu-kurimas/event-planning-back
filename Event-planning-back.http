@@ -1,3 +1,5 @@
+
+###
 GET http://localhost:5142/Users/
 Accept: application/json
 
@@ -6,11 +8,9 @@ POST http://localhost:5142/Users/login
 Content-Type: application/json
 
 {
-  "email": "Anton@gmail.com",
+  "email": "john@example.com",
   "password": "password123"
 }
-
-###
 
 ###
 POST http://localhost:5142/Users/register
@@ -28,8 +28,8 @@ POST http://localhost:5142/Projects/create
 Content-Type: application/json
 
 {
-  "projectName": "project6",
-  "projectDescription": "Test 1"
+  "projectName": "project7",
+  "projectDescription": "Test 4"
 }
 
 ###
@@ -39,12 +39,12 @@ Content-Type: application/json
 
 {
   "email": "john@example.com",
-  "projectId": "5c824f90-e46c-4a31-92f4-2337bef8836c"
+  "projectId": "590a1429-808d-4d14-be84-69a155fa76f2"
 }
 
 
 ###
-GET http://localhost:5142/Projects/5c824f90-e46c-4a31-92f4-2337bef8836c
+GET http://localhost:5142/Projects/590a1429-808d-4d14-be84-69a155fa76f2
 Accept: application/json
 
 ###
@@ -69,12 +69,12 @@ POST http://localhost:5142/Task/create
 Content-Type: application/json
 
 {
-  "projectId": "5c824f90-e46c-4a31-92f4-2337bef8836c",
-  "taskName": "Task 4"
+  "projectId": "8ecc0a57-b3ca-4cb9-8db7-415367583353",
+  "taskName": "Task 1"
 }
 
 ###
-GET http://localhost:5142/Task/8e4ebc38-0427-4f77-82fa-bee3d58cf063
+GET http://localhost:5142/Task/cc9a92b9-2b77-44f6-9c60-a83f41990f56
 Accept: application/json
 
 
@@ -84,5 +84,22 @@ Content-Type: application/json
 
 {
   "userId": "f52d134c-62d7-4f47-b15a-f793d26e4e0e",
-  "taskId": "8e4ebc38-0427-4f77-82fa-bee3d58cf063"
+  "taskId": "cc9a92b9-2b77-44f6-9c60-a83f41990f56"
 }
+
+###
+POST http://localhost:5142/Guest/create
+Content-Type: application/json
+
+{
+  "projectId": "8ecc0a57-b3ca-4cb9-8db7-415367583353",
+  "guestName": "Danil",
+  "guestSurname": "Tartilov"
+}
+
+###
+GET http://localhost:5142/Projects/guests?projectId=8ecc0a57-b3ca-4cb9-8db7-415367583353
+Accept: application/json
+
+###
+DELETE http://localhost:5142/Projects/590a1429-808d-4d14-be84-69a155fa76f2

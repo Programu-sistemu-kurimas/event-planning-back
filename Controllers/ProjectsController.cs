@@ -1,3 +1,4 @@
+using Event_planning_back.Contracts.Guest;
 using Event_planning_back.Contracts.Project;
 using Event_planning_back.Contracts.Users;
 using Event_planning_back.Core.Abstractions;
@@ -16,12 +17,14 @@ public class ProjectsController : ControllerBase
     private readonly IProjectService _projectService;
     private readonly IJwtProvider _jwtProvider;
     private readonly ITaskService _taskService;
+    private readonly IGuestService _guestService;
 
-    public ProjectsController(IProjectService projectService, IJwtProvider jwtProvider, IUserService userService, ITaskRepository taskRepository, ITaskService taskService)
+    public ProjectsController(IProjectService projectService, IJwtProvider jwtProvider, IUserService userService, ITaskRepository taskRepository, ITaskService taskService, IGuestService guestService)
     {
         _projectService = projectService;
         _jwtProvider = jwtProvider;
         _taskService = taskService;
+        _guestService = guestService;
     }
     [Authorize]
     [HttpPost("create")]
@@ -89,7 +92,6 @@ public class ProjectsController : ControllerBase
         if (project == null)
             return NotFound();
         
-        
         var workersList = await Task.WhenAll(project.Workers.Select( async w => 
         {
             var role = await _projectService.GetUserRole(w, project);
@@ -102,8 +104,6 @@ public class ProjectsController : ControllerBase
                 role.ToString()
             );
         }));
-        
-        
         
         var tasks = project.Tasks
             .Select(t => new TaskResponseList(t.Id, 
@@ -122,6 +122,43 @@ public class ProjectsController : ControllerBase
         );
 
         return Ok(response);
+    }
+
+    [Authorize]
+    [HttpGet("guests")]
+    public async Task<IActionResult> GetGuests(Guid projectId)
+    {
+        var guestsList = await _projectService.GetGuests(projectId);
+       
+        if (guestsList == null)
+            return NotFound();
+        
+        var response = guestsList.Select(g => new GuestResponse(g.Id,
+            g.Name,
+            g.Surname)).ToList();
+        
+        return Ok(response);
+
+    }
+
+    [Authorize]
+    [HttpDelete("{projectId:guid}")]
+    public async Task<IActionResult> DeleteProject(Guid projectId)
+    {
+        var token = Request.Cookies["AuthToken"];
+        if (token == null)
+            return Unauthorized();
+        var userId = _jwtProvider.GetUserId(token);
+
+        if (!await _projectService.AsserRole(userId, projectId, Role.Owner))
+            return Forbid();
+        
+        
+        if (!await _projectService.DeleteProject(projectId, userId))
+            return NotFound();
+        
+        return NoContent();
+
     }
 
    

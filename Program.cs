@@ -10,12 +10,12 @@ using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 var jwtKey = builder.Configuration.GetSection("Jwt:SecretKey").Get<string>();
-var LocalhostCors = "_localhostCors";
+var localhostCors = "_localhostCors";
 
 // Add services to the container.
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(LocalhostCors, builder =>
+    options.AddPolicy(localhostCors, builder =>
        builder.SetIsOriginAllowed(origin => new Uri(origin).Host.EndsWith("localhost"))
               .AllowAnyHeader()
               .AllowAnyMethod());
@@ -38,6 +38,8 @@ builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<ITaskRepository, TaskRepository>();
 builder.Services.AddScoped<ITaskService, TaskService>();
+builder.Services.AddScoped<IGuestRepository, GuestRepository>();
+builder.Services.AddScoped<IGuestService, GuestService>();
 
 builder.Services.Configure<JwtOptions>(
     builder.Configuration.GetSection("Jwt"));
@@ -71,7 +73,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    app.UseCors(LocalhostCors);
+    app.UseCors(localhostCors);
 }
 
 app.UseHttpsRedirection();

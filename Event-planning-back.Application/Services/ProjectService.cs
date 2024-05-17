@@ -1,5 +1,6 @@
 using Event_planning_back.Core.Models;
 using Event_planning_back.Core.Security;
+using Task = System.Threading.Tasks.Task;
 
 namespace Event_planning_back.Application.Services;
 
@@ -26,7 +27,7 @@ public class ProjectService : IProjectService
         var project = Project.Create(Guid.NewGuid(), projectName, projectDesc);
         var projectId = await _projectRepository.Create(project, user);
         
-        await _projectRepository.AddRole(project, user, Role.Admin);
+        await _projectRepository.AddRole(project, user, Role.Owner);
         
         return projectId;
     }
@@ -82,5 +83,15 @@ public class ProjectService : IProjectService
         var trueRole = await _projectRepository.GetRole(project, user);
         
         return role == trueRole;
+    }
+
+    public async Task<List<Guest>?> GetGuests(Guid projectId)
+    {
+        return await _projectRepository.GetGuests(projectId);
+    }
+
+    public async Task<bool> DeleteProject(Guid projectId, Guid userId)
+    {
+        return await _projectRepository.Delete(projectId);
     }
 }
