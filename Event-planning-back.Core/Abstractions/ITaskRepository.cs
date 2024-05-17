@@ -10,4 +10,6 @@ public interface ITaskRepository
     Task<Task?> GetById(Guid taskId);
 
     Task<List<User>?> GetUsers(Guid taskId);
+
+    Task<bool> Delete(Guid guestId);
 }

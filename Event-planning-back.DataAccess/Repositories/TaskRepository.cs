@@ -109,4 +109,17 @@ public class TaskRepository : ITaskRepository
                 u.PasswordHash, 
                 u.Email).User).ToList();
     }
+    
+    public async Task<bool> Delete(Guid guestId)
+    {
+        var taskEntity = await _context.Tasks.FindAsync(guestId);
+        if (taskEntity == null)
+            return false;
+        
+        _context.Tasks.Remove(taskEntity);
+        await _context.SaveChangesAsync();
+
+        return true;
+
+    }
 }

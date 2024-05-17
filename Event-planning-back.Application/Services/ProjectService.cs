@@ -41,9 +41,6 @@ public class ProjectService : IProjectService
         if (project == null || user == null || admin == null)
             return false;
         
-        if(await _projectRepository.GetRole(project, admin) != Role.Admin)
-            return false;
-        
         return await _projectRepository.AddRole(project, user, role);
     }
 

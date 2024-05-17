@@ -44,4 +44,10 @@ public class TaskService : ITaskService
         return await _taskRepository.GetUsers(taskId);
     }
 
+    public async Task<bool> DeleteTask(Guid taskId)
+    {
+        
+        return await _taskRepository.Delete(taskId);
+    }
+
 }

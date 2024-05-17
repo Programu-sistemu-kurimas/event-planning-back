@@ -8,7 +8,7 @@ POST http://localhost:5142/Users/login
 Content-Type: application/json
 
 {
-  "email": "john@example.com",
+  "email": "Anton@gmail.com",
   "password": "password123"
 }
 
@@ -92,14 +92,24 @@ POST http://localhost:5142/Guest/create
 Content-Type: application/json
 
 {
-  "projectId": "8ecc0a57-b3ca-4cb9-8db7-415367583353",
+  "projectId": "2cc25a54-6e02-4143-9ed6-b2222f5b3c17",
   "guestName": "Danil",
   "guestSurname": "Tartilov"
 }
 
 ###
-GET http://localhost:5142/Projects/guests?projectId=8ecc0a57-b3ca-4cb9-8db7-415367583353
+GET http://localhost:5142/Projects/guests?projectId=2cc25a54-6e02-4143-9ed6-b2222f5b3c17
 Accept: application/json
 
 ###
 DELETE http://localhost:5142/Projects/590a1429-808d-4d14-be84-69a155fa76f2
+
+
+###
+DELETE http://localhost:5142/Task/3b3d6496-f911-4a64-a973-7aea2758643c
+
+
+###
+
+
+
