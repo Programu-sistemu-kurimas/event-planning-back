@@ -8,8 +8,8 @@ POST http://localhost:5142/Users/login
 Content-Type: application/json
 
 {
-  "email": "Anton@gmail.com",
-  "password": "password123"
+  "email": "A",
+  "password": "123"
 }
 
 ###
@@ -17,10 +17,10 @@ POST http://localhost:5142/Users/register
 Content-Type: application/json
 
 {
-  "name": "Anton",
-  "surname": "Vaicikevic",
-  "password": "password123",
-  "email": "Anton@gmail.com"
+  "name": "Test 1 ",
+  "surname": "Test 1",
+  "password": "123",
+  "email": "A"
 }
 
 ###
@@ -28,8 +28,8 @@ POST http://localhost:5142/Projects/create
 Content-Type: application/json
 
 {
-  "projectName": "project8",
-  "projectDescription": "Test 1"
+  "projectName": "project9",
+  "projectDescription": "Test 2"
 }
 
 ###
@@ -130,3 +130,7 @@ Content-Type: application/json
   "email": "john@example.com",
   "projectId": "43692b9c-c0e3-41d6-b597-39fd7e9fb6f6"
 }
+
+
+###
+DELETE http://localhost:5142/Users

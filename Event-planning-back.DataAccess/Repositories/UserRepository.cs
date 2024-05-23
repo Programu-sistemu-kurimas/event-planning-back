@@ -55,24 +55,36 @@ public class UserRepository : IUserRepository
         return userEntity.Id;
     }
 
-    public async Task<Guid> Update(Guid id, string userName, string userSurname, string passwordHash, string email)
-    {
-        var user = await _context.Users
-            .Where(u => u.Id == id)
-            .ExecuteUpdateAsync(s => s
-                .SetProperty(u => u.UserName, u => userName)
-                .SetProperty(u => u.UserSurname, u => userSurname)
-                .SetProperty(u => u.PasswordHash, u => passwordHash)
-                .SetProperty(u => u.Email, u => email));
+    public async Task<Guid> Update(Guid id, string? userName, string? userSurname, string? email)
+    {  
+        var user = await _context.Users.FindAsync(id);
+        
+        if (user == null) return Guid.Empty;
+
+        if (!string.IsNullOrEmpty(userName))
+            user.UserName = userName;
+        if (!string.IsNullOrEmpty(userSurname))
+            user.UserSurname = userSurname;
+        if (!string.IsNullOrEmpty(email))
+            user.Email = email;
+
+        _context.Users.Update(user);
+        await _context.SaveChangesAsync();
         return id;
     }
 
     public async Task<Guid> Delete(Guid id)
     {
-        await _context.Users
-            .Where(u => u.Id == id)
-            .ExecuteDeleteAsync();
+        var user = await _context.Users
+            .Include(u => u.Projects)
+            .FirstOrDefaultAsync(u => u.Id == id);
 
+        if (user == null)
+            return Guid.Empty;
+            
+            
+        _context.Users.Remove(user);
+        await _context.SaveChangesAsync();
         return id;
     }
     
@@ -128,4 +140,5 @@ public class UserRepository : IUserRepository
         return projects;
 
     }
+    
 }
