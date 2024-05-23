@@ -79,6 +79,27 @@ public class UsersController: ControllerBase
 
         return Ok(response);
     }
+    [Authorize]
+    [HttpGet("archivedProjects")]
+    public async Task<ActionResult<List<ProjectListResponse>>> GetUserArchivedProjects()
+    {
+        var token = Request.Cookies["AuthToken"];
+        if (token == null)
+            return Unauthorized();
+        
+        var userId = _jwtProvider1.GetUserId(token);
+        var projects = await _userService.GetArchivedProjects(userId);
+
+        if (projects == null)
+            return NotFound();
+
+        var response = projects.Select(p => new ProjectListResponse(
+            p.Id,
+            p.ProjectName,
+            p.Description));
+
+        return Ok(response);
+    }
     
     
 }

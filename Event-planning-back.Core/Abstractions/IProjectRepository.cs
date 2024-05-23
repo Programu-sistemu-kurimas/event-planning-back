@@ -12,8 +12,10 @@ public interface IProjectRepository
     Task<Project?> GetById(Guid id);
     Task<Role> GetRole(Project project, User user);
     Task<List<Guest>?> GetGuests(Guid projectId);
-
     Task<bool> Delete(Guid projectId);
+    Task<Guid> Archive(Guid projectId);
+
+    Task<Guid> Unarchive(Guid projectId);
 
 
 }

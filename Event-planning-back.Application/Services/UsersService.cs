@@ -65,4 +65,9 @@ public class UsersService : IUserService
     {
         return await _userRepository.GetProjects(userId);
     }
+    
+    public async Task<List<Project>?> GetArchivedProjects(Guid userId)
+    {
+        return await _userRepository.GetArchivedProjects(userId);
+    }
 }

@@ -1,5 +1,6 @@
 using Event_planning_back.Core.Models;
 using Event_planning_back.Core.Security;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Task = System.Threading.Tasks.Task;
 
 namespace Event_planning_back.Application.Services;
@@ -32,6 +33,10 @@ public class ProjectService : IProjectService
         return projectId;
     }
 
+    public async Task<Guid> ArchiveProject(Guid projectId)
+    {
+        return await _projectRepository.Archive(projectId);
+    }
     public async Task<bool> SetUserRole(Guid userAdminId, Guid userId, Guid projectId, Role role)
     {
         var admin =await _userRepository.GetById(userAdminId);
@@ -44,6 +49,11 @@ public class ProjectService : IProjectService
         return await _projectRepository.AddRole(project, user, role);
     }
 
+    public async Task<Guid> UnarchiveProject(Guid projectId)
+    {
+        return await _projectRepository.Unarchive(projectId);
+    }
+    
     public async Task<Guid> AddUserToProject(string userEmail, Guid projectId)
     {
         var user = await _userRepository.GetByEmail(userEmail);

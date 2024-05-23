@@ -13,4 +13,6 @@ public interface IUserRepository
     Task<User?> GetByEmail(string email);
 
     Task<List<Project>?> GetProjects(Guid userId);
+
+    Task<List<Project>?> GetArchivedProjects(Guid userId);
 }

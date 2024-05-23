@@ -115,6 +115,20 @@ public class ProjectRepository : IProjectRepository
             .ToList();
     }
 
+    public async Task<Guid> Unarchive(Guid projectId)
+    {
+        var projectEntity = await _context.Projects.FindAsync(projectId);
+        
+        if (projectEntity == null)
+            return Guid.Empty;
+        
+        projectEntity.IsArchived = false;
+        
+        await _context.SaveChangesAsync();
+        
+        return projectEntity.Id;
+    }
+
     public async Task<Role> GetRole(Project project, User user)
     {
         var userProjectEntity = await _context.UserProject.FindAsync(user.Id, project.Id);
@@ -128,6 +142,18 @@ public class ProjectRepository : IProjectRepository
 
     }
 
+    public async Task<Guid> Archive(Guid projectId)
+    {
+        var projectEntity = await _context.Projects.FindAsync(projectId);
+        
+        if (projectEntity == null)
+            return Guid.Empty;
+        
+        projectEntity.IsArchived = true;
+        await _context.SaveChangesAsync();
+
+        return projectEntity.Id;
+    }
     public async Task<bool> Delete(Guid projectId)
     {
         var projectEntity = await _context.Projects.FindAsync(projectId);

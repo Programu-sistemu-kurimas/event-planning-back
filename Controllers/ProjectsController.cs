@@ -51,6 +51,43 @@ public class ProjectsController : ControllerBase
     }
 
     [Authorize]
+    [HttpPost("Archive/{projectId:guid}")]
+    public async Task<IActionResult> ArchiveProject(Guid projectId)
+    {
+        var token = Request.Cookies["AuthToken"];
+        if (token == null)
+            return Unauthorized();
+        
+        var userId = _jwtProvider.GetUserId(token);
+
+        if (!await _projectService.AsserRole(userId, projectId, Role.Owner))
+            return Forbid();
+        
+        if (await _projectService.ArchiveProject(projectId) == Guid.Empty)
+            return NotFound();
+        
+        return Ok(projectId);
+    }
+    
+    [Authorize]
+    [HttpPost("Unarchive/{projectId:guid}")]
+    public async Task<IActionResult> UnarchiveProject(Guid projectId)
+    {
+        var token = Request.Cookies["AuthToken"];
+        if (token == null)
+            return Unauthorized();
+        
+        var userId = _jwtProvider.GetUserId(token);
+
+        if (!await _projectService.AsserRole(userId, projectId, Role.Owner))
+            return Forbid();
+        
+        if (await _projectService.UnarchiveProject(projectId) == Guid.Empty)
+            return NotFound();
+        
+        return Ok(projectId);
+    }
+    [Authorize]
     [HttpPost("setRole")]
     public async Task<IActionResult> SetUserRole(SetRoleRequest request)
     {
