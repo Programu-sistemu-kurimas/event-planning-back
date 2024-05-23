@@ -16,6 +16,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    - name: Build the Docker image
+      run: docker-compose build
+      
+    - name: up posgresql and apache container runs
+      run: docker-compose up -d
+      
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
