@@ -120,3 +120,13 @@ Content-Type: application/json
 ###
 GET http://localhost:5142/Users/archivedProjects
 Accept: application/json
+
+
+###
+PUT http://localhost:5142/Projects/deleteUser
+Content-Type: application/json
+
+{
+  "email": "john@example.com",
+  "projectId": "43692b9c-c0e3-41d6-b597-39fd7e9fb6f6"
+}

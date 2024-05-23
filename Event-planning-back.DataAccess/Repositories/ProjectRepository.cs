@@ -1,3 +1,4 @@
+using System.Security.AccessControl;
 using Event_planning_back.Contracts.Task;
 using Event_planning_back.Core.Abstractions;
 using Event_planning_back.Core.Security;
@@ -160,9 +161,21 @@ public class ProjectRepository : IProjectRepository
             return false;
         
         _context.Projects.Remove(projectEntity);
-        await _context.SaveChangesAsync();
+        return 0 <= await _context.SaveChangesAsync();
+    }
 
-        return true;
+    public async Task<bool> DeleteUser(Guid projectId, Guid userId)
+    {
+        var projectEntity = await _context.Projects
+            .Include(p => p.Users)
+            .FirstOrDefaultAsync(p => p.Id == projectId);
+        var userEntity = await _context.Users.FindAsync(userId);
+        if (projectEntity == null || userEntity == null)
+            return false;
+
+        projectEntity.Users.Remove(userEntity);
+
+        return 0 <= await _context.SaveChangesAsync();
     }
 }
 

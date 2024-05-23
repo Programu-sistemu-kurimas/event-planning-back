@@ -17,5 +17,7 @@ public interface IProjectRepository
 
     Task<Guid> Unarchive(Guid projectId);
 
+    Task<bool> DeleteUser(Guid projectId, Guid userId);
+
 
 }

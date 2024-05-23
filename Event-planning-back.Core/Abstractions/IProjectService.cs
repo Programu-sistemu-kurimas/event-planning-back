@@ -23,4 +23,6 @@ public interface IProjectService
     Task<Guid> ArchiveProject(Guid projectId);
 
     Task<Guid> UnarchiveProject(Guid projectId);
+
+    Task<bool> DeleteUserFromProject(Guid projectId, Guid userId);
 }

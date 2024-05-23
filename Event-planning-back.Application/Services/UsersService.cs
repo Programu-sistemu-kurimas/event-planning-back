@@ -44,16 +44,12 @@ public class UsersService : IUserService
         var user = await _userRepository.GetByEmail(email);
 
         if (user == null)
-        {
             return null;
-        }
 
         var result = _passwordHasher.Verify(password, user.PasswordHash);
         
         if (result == false)
-        {
             return null;
-        }
 
         var token = _jwtProvider.GenerateToken(user);
         
@@ -68,5 +64,10 @@ public class UsersService : IUserService
     public async Task<List<Project>?> GetArchivedProjects(Guid userId)
     {
         return await _userRepository.GetArchivedProjects(userId);
+    }
+
+    public async Task<User?> GetUserByEmail(string email)
+    {
+        return await _userRepository.GetByEmail(email);
     }
 }

@@ -99,4 +99,9 @@ public class ProjectService : IProjectService
     {
         return await _projectRepository.Delete(projectId);
     }
+
+    public async Task<bool> DeleteUserFromProject(Guid projectId, Guid userId)
+    {
+        return await _projectRepository.DeleteUser(projectId, userId);
+    }
 }

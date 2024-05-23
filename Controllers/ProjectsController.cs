@@ -5,6 +5,7 @@ using Event_planning_back.Core.Abstractions;
 using Event_planning_back.Core.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Task = System.Threading.Tasks.Task;
 
 namespace Event_planning_back.Controllers;
@@ -15,11 +16,13 @@ public class ProjectsController : ControllerBase
 {
     private readonly IProjectService _projectService;
     private readonly IJwtProvider _jwtProvider;
+    private readonly IUserService _userService;
 
-    public ProjectsController(IProjectService projectService, IJwtProvider jwtProvider)
+    public ProjectsController(IProjectService projectService, IJwtProvider jwtProvider, IUserService userService)
     {
         _projectService = projectService;
         _jwtProvider = jwtProvider;
+        _userService = userService;
     }
     [Authorize]
     [HttpPost("create")]
@@ -191,6 +194,29 @@ public class ProjectsController : ControllerBase
             return NotFound();
         
         return NoContent();
+
+    }
+
+    [Authorize]
+    [HttpPut("deleteUser")]
+    public async Task<IActionResult> DeleteUserFromProject(AddUserRequest request)
+    {
+        var token = Request.Cookies["AuthToken"];
+        if (token == null)
+            return Unauthorized();
+        var adminUserId = _jwtProvider.GetUserId(token);
+
+        var userId = (await _userService.GetUserByEmail(request.Email))!.Id;
+        if(!await _projectService.AsserRole(adminUserId, request.ProjectId, Role.Admin) &&
+           !await _projectService.AsserRole(adminUserId, request.ProjectId, Role.Owner) &&
+           adminUserId != userId)
+            return Forbid();
+
+        if (!await _projectService.DeleteUserFromProject(request.ProjectId, userId))
+            return BadRequest();
+
+        return Ok();
+
 
     }
 
