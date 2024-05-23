@@ -1,3 +1,4 @@
+#pragma warning disable 0436
 using System.Text;
 using Event_planning_back.Application.Services;
 using Event_planning_back.Core.Abstractions;
