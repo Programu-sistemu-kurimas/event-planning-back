@@ -1,10 +1,9 @@
 using Event_planning_back.Core.Models;
 using Event_planning_back.Core.Security;
-using Task = System.Threading.Tasks.Task;
+using Event_planning_back.Core.Abstractions;
 
 namespace Event_planning_back.Application.Services;
 
-using Core.Abstractions;
 
 public class ProjectService : IProjectService
 {
@@ -32,6 +31,10 @@ public class ProjectService : IProjectService
         return projectId;
     }
 
+    public async Task<Guid> ArchiveProject(Guid projectId)
+    {
+        return await _projectRepository.Archive(projectId);
+    }
     public async Task<bool> SetUserRole(Guid userAdminId, Guid userId, Guid projectId, Role role)
     {
         var admin =await _userRepository.GetById(userAdminId);
@@ -41,12 +44,14 @@ public class ProjectService : IProjectService
         if (project == null || user == null || admin == null)
             return false;
         
-        if(await _projectRepository.GetRole(project, admin) != Role.Admin)
-            return false;
-        
         return await _projectRepository.AddRole(project, user, role);
     }
 
+    public async Task<Guid> UnarchiveProject(Guid projectId)
+    {
+        return await _projectRepository.Unarchive(projectId);
+    }
+    
     public async Task<Guid> AddUserToProject(string userEmail, Guid projectId)
     {
         var user = await _userRepository.GetByEmail(userEmail);
@@ -93,5 +98,10 @@ public class ProjectService : IProjectService
     public async Task<bool> DeleteProject(Guid projectId, Guid userId)
     {
         return await _projectRepository.Delete(projectId);
+    }
+
+    public async Task<bool> DeleteUserFromProject(Guid projectId, Guid userId)
+    {
+        return await _projectRepository.DeleteUser(projectId, userId);
     }
 }

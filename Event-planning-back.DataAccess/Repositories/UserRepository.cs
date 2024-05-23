@@ -1,7 +1,6 @@
 using Event_planning_back.Core.Abstractions;
 using Event_planning_back.Core.Models;
 using Event_planning_back.DataAccess.Entities;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 namespace Event_planning_back.DataAccess.Repositories;
@@ -100,11 +99,31 @@ public class UserRepository : IUserRepository
         if (userEntity == null)
             return null;
         
-        var projects = userEntity.Projects.Select(p => Project.Create(
+        var projects = userEntity.Projects.Where(p => !p.IsArchived)
+            .Select(p => Project.Create(
             p.Id,
             p.ProjectName,
             p.Description
         )).ToList();
+
+        return projects;
+
+    }
+    public async Task<List<Project>?> GetArchivedProjects(Guid userId)
+    {
+        var userEntity = await _context.Users
+            .Include(u => u.Projects)
+            .FirstOrDefaultAsync(u => u.Id == userId);
+        
+        if (userEntity == null)
+            return null;
+        
+        var projects = userEntity.Projects.Where(p => p.IsArchived)
+            .Select(p => Project.Create(
+                p.Id,
+                p.ProjectName,
+                p.Description
+            )).ToList();
 
         return projects;
 

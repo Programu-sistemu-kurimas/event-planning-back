@@ -1,7 +1,6 @@
 using Event_planning_back.Contracts;
 using Event_planning_back.Contracts.Users;
 using Event_planning_back.Core.Abstractions;
-using Event_planning_back.Core.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -68,6 +67,27 @@ public class UsersController: ControllerBase
         
         var userId = _jwtProvider1.GetUserId(token);
         var projects = await _userService.GetProjects(userId);
+
+        if (projects == null)
+            return NotFound();
+
+        var response = projects.Select(p => new ProjectListResponse(
+            p.Id,
+            p.ProjectName,
+            p.Description));
+
+        return Ok(response);
+    }
+    [Authorize]
+    [HttpGet("archivedProjects")]
+    public async Task<ActionResult<List<ProjectListResponse>>> GetUserArchivedProjects()
+    {
+        var token = Request.Cookies["AuthToken"];
+        if (token == null)
+            return Unauthorized();
+        
+        var userId = _jwtProvider1.GetUserId(token);
+        var projects = await _userService.GetArchivedProjects(userId);
 
         if (projects == null)
             return NotFound();

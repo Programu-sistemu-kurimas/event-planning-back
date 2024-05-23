@@ -12,4 +12,7 @@ public interface IUserService
     Task<LoginUserResponse?> Login(string email, string password);
     
     Task<List<Project>?> GetProjects(Guid userId);
+    Task<List<Project>?> GetArchivedProjects(Guid userId);
+    
+    Task<User?> GetUserByEmail(string email);
 }

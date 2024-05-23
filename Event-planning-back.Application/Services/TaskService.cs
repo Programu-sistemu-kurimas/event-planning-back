@@ -1,4 +1,3 @@
-using Event_planning_back.Contracts.Task;
 using Event_planning_back.Core.Abstractions;
 using Event_planning_back.Core.Models;
 using Task = Event_planning_back.Core.Models.Task;
@@ -42,6 +41,12 @@ public class TaskService : ITaskService
     public async Task<List<User>?> GetAssignedUsers(Guid taskId)
     {
         return await _taskRepository.GetUsers(taskId);
+    }
+
+    public async Task<bool> DeleteTask(Guid taskId)
+    {
+        
+        return await _taskRepository.Delete(taskId);
     }
 
 }

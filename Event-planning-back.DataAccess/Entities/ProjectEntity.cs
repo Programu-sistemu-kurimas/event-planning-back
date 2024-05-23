@@ -1,4 +1,3 @@
-using Event_planning_back.Core.Models;
 
 namespace Event_planning_back.DataAccess.Entities;
 
@@ -9,6 +8,8 @@ public class ProjectEntity
     public string ProjectName { get;  set; } = string.Empty;
 
     public string Description { get;  set; } = string.Empty;
+    
+    public bool IsArchived { get; set; } = false;
 
     public ICollection<UserEntity> Users { get;  set; } = new List<UserEntity>();
 

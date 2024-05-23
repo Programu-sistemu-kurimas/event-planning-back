@@ -1,5 +1,6 @@
+using Event_planning_back.Core.Models;
+
 namespace Event_planning_back.Core.Abstractions;
-using Models;
 
 public interface IUserRepository
 {
@@ -13,4 +14,6 @@ public interface IUserRepository
     Task<User?> GetByEmail(string email);
 
     Task<List<Project>?> GetProjects(Guid userId);
+
+    Task<List<Project>?> GetArchivedProjects(Guid userId);
 }

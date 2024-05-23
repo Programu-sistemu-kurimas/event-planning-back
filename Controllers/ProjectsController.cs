@@ -2,10 +2,10 @@ using Event_planning_back.Contracts.Guest;
 using Event_planning_back.Contracts.Project;
 using Event_planning_back.Contracts.Users;
 using Event_planning_back.Core.Abstractions;
-using Event_planning_back.Core.Models;
 using Event_planning_back.Core.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Task = System.Threading.Tasks.Task;
 
 namespace Event_planning_back.Controllers;
@@ -16,15 +16,13 @@ public class ProjectsController : ControllerBase
 {
     private readonly IProjectService _projectService;
     private readonly IJwtProvider _jwtProvider;
-    private readonly ITaskService _taskService;
-    private readonly IGuestService _guestService;
+    private readonly IUserService _userService;
 
-    public ProjectsController(IProjectService projectService, IJwtProvider jwtProvider, IUserService userService, ITaskRepository taskRepository, ITaskService taskService, IGuestService guestService)
+    public ProjectsController(IProjectService projectService, IJwtProvider jwtProvider, IUserService userService)
     {
         _projectService = projectService;
         _jwtProvider = jwtProvider;
-        _taskService = taskService;
-        _guestService = guestService;
+        _userService = userService;
     }
     [Authorize]
     [HttpPost("create")]
@@ -49,13 +47,49 @@ public class ProjectsController : ControllerBase
         if (token == null)
             return Unauthorized();
         
-        var userId = _jwtProvider.GetUserId(token);
         if (await _projectService.AddUserToProject(request.Email, request.ProjectId) == Guid.Empty)
             return BadRequest();
 
         return Created();
     }
 
+    [Authorize]
+    [HttpPost("Archive/{projectId:guid}")]
+    public async Task<IActionResult> ArchiveProject(Guid projectId)
+    {
+        var token = Request.Cookies["AuthToken"];
+        if (token == null)
+            return Unauthorized();
+        
+        var userId = _jwtProvider.GetUserId(token);
+
+        if (!await _projectService.AsserRole(userId, projectId, Role.Owner))
+            return Forbid();
+        
+        if (await _projectService.ArchiveProject(projectId) == Guid.Empty)
+            return NotFound();
+        
+        return Ok(projectId);
+    }
+    
+    [Authorize]
+    [HttpPost("Unarchive/{projectId:guid}")]
+    public async Task<IActionResult> UnarchiveProject(Guid projectId)
+    {
+        var token = Request.Cookies["AuthToken"];
+        if (token == null)
+            return Unauthorized();
+        
+        var userId = _jwtProvider.GetUserId(token);
+
+        if (!await _projectService.AsserRole(userId, projectId, Role.Owner))
+            return Forbid();
+        
+        if (await _projectService.UnarchiveProject(projectId) == Guid.Empty)
+            return NotFound();
+        
+        return Ok(projectId);
+    }
     [Authorize]
     [HttpPost("setRole")]
     public async Task<IActionResult> SetUserRole(SetRoleRequest request)
@@ -66,7 +100,12 @@ public class ProjectsController : ControllerBase
         
         
         var userAdminId = _jwtProvider.GetUserId(token);
-        var role= (Role)Enum.Parse(typeof(Role), request.Role);
+        
+        if(!await _projectService.AsserRole(userAdminId, request.ProjectId, Role.Admin) &&
+           !await _projectService.AsserRole(userAdminId, request.ProjectId, Role.Owner))
+            return Forbid();
+
+        var role = (Role)Enum.Parse(typeof(Role), request.Role);
 
         var response = await _projectService.SetUserRole(userAdminId, request.UserId, request.ProjectId, role);
         
@@ -84,11 +123,8 @@ public class ProjectsController : ControllerBase
         if (token == null)
             return Unauthorized();
         
-        var userId = _jwtProvider.GetUserId(token);
-        
         var project = await _projectService.GetById(projectId);
 
-        
         if (project == null)
             return NotFound();
         
@@ -158,6 +194,29 @@ public class ProjectsController : ControllerBase
             return NotFound();
         
         return NoContent();
+
+    }
+
+    [Authorize]
+    [HttpPut("deleteUser")]
+    public async Task<IActionResult> DeleteUserFromProject(AddUserRequest request)
+    {
+        var token = Request.Cookies["AuthToken"];
+        if (token == null)
+            return Unauthorized();
+        var adminUserId = _jwtProvider.GetUserId(token);
+
+        var userId = (await _userService.GetUserByEmail(request.Email))!.Id;
+        if(!await _projectService.AsserRole(adminUserId, request.ProjectId, Role.Admin) &&
+           !await _projectService.AsserRole(adminUserId, request.ProjectId, Role.Owner) &&
+           adminUserId != userId)
+            return Forbid();
+
+        if (!await _projectService.DeleteUserFromProject(request.ProjectId, userId))
+            return BadRequest();
+
+        return Ok();
+
 
     }
 

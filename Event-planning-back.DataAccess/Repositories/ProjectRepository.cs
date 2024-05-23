@@ -1,4 +1,4 @@
-using System.Dynamic;
+using System.Security.AccessControl;
 using Event_planning_back.Contracts.Task;
 using Event_planning_back.Core.Abstractions;
 using Event_planning_back.Core.Security;
@@ -115,6 +115,20 @@ public class ProjectRepository : IProjectRepository
             .ToList();
     }
 
+    public async Task<Guid> Unarchive(Guid projectId)
+    {
+        var projectEntity = await _context.Projects.FindAsync(projectId);
+        
+        if (projectEntity == null)
+            return Guid.Empty;
+        
+        projectEntity.IsArchived = false;
+        
+        await _context.SaveChangesAsync();
+        
+        return projectEntity.Id;
+    }
+
     public async Task<Role> GetRole(Project project, User user)
     {
         var userProjectEntity = await _context.UserProject.FindAsync(user.Id, project.Id);
@@ -128,6 +142,18 @@ public class ProjectRepository : IProjectRepository
 
     }
 
+    public async Task<Guid> Archive(Guid projectId)
+    {
+        var projectEntity = await _context.Projects.FindAsync(projectId);
+        
+        if (projectEntity == null)
+            return Guid.Empty;
+        
+        projectEntity.IsArchived = true;
+        await _context.SaveChangesAsync();
+
+        return projectEntity.Id;
+    }
     public async Task<bool> Delete(Guid projectId)
     {
         var projectEntity = await _context.Projects.FindAsync(projectId);
@@ -135,9 +161,21 @@ public class ProjectRepository : IProjectRepository
             return false;
         
         _context.Projects.Remove(projectEntity);
-        await _context.SaveChangesAsync();
+        return 0 <= await _context.SaveChangesAsync();
+    }
 
-        return true;
+    public async Task<bool> DeleteUser(Guid projectId, Guid userId)
+    {
+        var projectEntity = await _context.Projects
+            .Include(p => p.Users)
+            .FirstOrDefaultAsync(p => p.Id == projectId);
+        var userEntity = await _context.Users.FindAsync(userId);
+        if (projectEntity == null || userEntity == null)
+            return false;
+
+        projectEntity.Users.Remove(userEntity);
+
+        return 0 <= await _context.SaveChangesAsync();
     }
 }
 

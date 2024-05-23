@@ -8,7 +8,7 @@ POST http://localhost:5142/Users/login
 Content-Type: application/json
 
 {
-  "email": "john@example.com",
+  "email": "Anton@gmail.com",
   "password": "password123"
 }
 
@@ -28,8 +28,8 @@ POST http://localhost:5142/Projects/create
 Content-Type: application/json
 
 {
-  "projectName": "project7",
-  "projectDescription": "Test 4"
+  "projectName": "project8",
+  "projectDescription": "Test 1"
 }
 
 ###
@@ -39,12 +39,12 @@ Content-Type: application/json
 
 {
   "email": "john@example.com",
-  "projectId": "590a1429-808d-4d14-be84-69a155fa76f2"
+  "projectId": "43692b9c-c0e3-41d6-b597-39fd7e9fb6f6"
 }
 
 
 ###
-GET http://localhost:5142/Projects/590a1429-808d-4d14-be84-69a155fa76f2
+GET http://localhost:5142/Projects/43692b9c-c0e3-41d6-b597-39fd7e9fb6f6
 Accept: application/json
 
 ###
@@ -69,7 +69,7 @@ POST http://localhost:5142/Task/create
 Content-Type: application/json
 
 {
-  "projectId": "8ecc0a57-b3ca-4cb9-8db7-415367583353",
+  "projectId": "43692b9c-c0e3-41d6-b597-39fd7e9fb6f6",
   "taskName": "Task 1"
 }
 
@@ -92,14 +92,41 @@ POST http://localhost:5142/Guest/create
 Content-Type: application/json
 
 {
-  "projectId": "8ecc0a57-b3ca-4cb9-8db7-415367583353",
+  "projectId": "2cc25a54-6e02-4143-9ed6-b2222f5b3c17",
   "guestName": "Danil",
   "guestSurname": "Tartilov"
 }
 
 ###
-GET http://localhost:5142/Projects/guests?projectId=8ecc0a57-b3ca-4cb9-8db7-415367583353
+GET http://localhost:5142/Projects/guests?projectId=2cc25a54-6e02-4143-9ed6-b2222f5b3c17
 Accept: application/json
 
 ###
 DELETE http://localhost:5142/Projects/590a1429-808d-4d14-be84-69a155fa76f2
+
+
+###
+DELETE http://localhost:5142/Task/3b3d6496-f911-4a64-a973-7aea2758643c
+
+
+###
+POST http://localhost:5142/Projects/Archive/43692b9c-c0e3-41d6-b597-39fd7e9fb6f6
+Content-Type: application/json
+
+###
+POST http://localhost:5142/Projects/Unarchive/43692b9c-c0e3-41d6-b597-39fd7e9fb6f6
+Content-Type: application/json
+
+###
+GET http://localhost:5142/Users/archivedProjects
+Accept: application/json
+
+
+###
+PUT http://localhost:5142/Projects/deleteUser
+Content-Type: application/json
+
+{
+  "email": "john@example.com",
+  "projectId": "43692b9c-c0e3-41d6-b597-39fd7e9fb6f6"
+}

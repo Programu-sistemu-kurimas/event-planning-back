@@ -49,5 +49,9 @@ public class EventPlanningDbContext : DbContext
             .HasOne(g => g.Project)
             .WithMany(p => p.Guests)
             .HasForeignKey(g => g.ProjectId);
+        
+        modelBuilder.Entity<ProjectEntity>()
+            .Property(p => p.IsArchived)
+            .HasDefaultValue(false);
     }
 }

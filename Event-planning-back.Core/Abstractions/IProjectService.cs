@@ -20,4 +20,9 @@ public interface IProjectService
     Task<List<Guest>?> GetGuests(Guid projectId);
 
     Task<bool> DeleteProject(Guid projectId, Guid userId);
+    Task<Guid> ArchiveProject(Guid projectId);
+
+    Task<Guid> UnarchiveProject(Guid projectId);
+
+    Task<bool> DeleteUserFromProject(Guid projectId, Guid userId);
 }
