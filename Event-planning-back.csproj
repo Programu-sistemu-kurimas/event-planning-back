@@ -8,6 +8,7 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <NoWarn>0436</NoWarn>
   </PropertyGroup>
     
   <ItemGroup>
@@ -27,11 +28,7 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Event-planning-back.Application\Services\" />
-  </ItemGroup>
-
+  
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Event-planning-back.DataAccess\obj\Event-planning-back.DataAccess.csproj.nuget.dgspec.json" />
     <_ContentIncludedByDefault Remove="Event-planning-back.DataAccess\obj\project.assets.json" />
