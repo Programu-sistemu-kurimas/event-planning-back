@@ -1,4 +1,3 @@
-using Event_planning_back.Contracts.Task;
 using Event_planning_back.Core.Abstractions;
 using Event_planning_back.Core.Models;
 using Task = Event_planning_back.Core.Models.Task;

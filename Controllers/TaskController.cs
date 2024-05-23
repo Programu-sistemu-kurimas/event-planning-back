@@ -4,9 +4,7 @@ using Event_planning_back.Core.Abstractions;
 using Event_planning_back.Core.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Azure.Core;
 using Event_planning_back.Contracts.Project;
-using Task = Event_planning_back.Core.Models.Task;
 
 namespace Event_planning_back.Controllers;
 

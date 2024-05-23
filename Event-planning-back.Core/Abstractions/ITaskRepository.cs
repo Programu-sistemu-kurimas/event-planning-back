@@ -1,6 +1,8 @@
+using Event_planning_back.Core.Models;
+using Task = Event_planning_back.Core.Models.Task;
+
 namespace Event_planning_back.Core.Abstractions;
 
-using Models;
 
 public interface ITaskRepository
 {

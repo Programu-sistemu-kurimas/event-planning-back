@@ -1,11 +1,9 @@
 using Event_planning_back.Core.Models;
 using Event_planning_back.Core.Security;
-using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
-using Task = System.Threading.Tasks.Task;
+using Event_planning_back.Core.Abstractions;
 
 namespace Event_planning_back.Application.Services;
 
-using Core.Abstractions;
 
 public class ProjectService : IProjectService
 {

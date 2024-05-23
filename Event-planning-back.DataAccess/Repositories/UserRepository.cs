@@ -1,7 +1,6 @@
 using Event_planning_back.Core.Abstractions;
 using Event_planning_back.Core.Models;
 using Event_planning_back.DataAccess.Entities;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 namespace Event_planning_back.DataAccess.Repositories;

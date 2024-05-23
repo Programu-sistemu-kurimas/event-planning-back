@@ -1,7 +1,6 @@
 using Event_planning_back.Contracts;
 using Event_planning_back.Contracts.Users;
 using Event_planning_back.Core.Abstractions;
-using Event_planning_back.Core.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

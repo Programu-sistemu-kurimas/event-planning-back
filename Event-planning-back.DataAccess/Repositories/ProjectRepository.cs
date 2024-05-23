@@ -1,4 +1,3 @@
-using System.Dynamic;
 using Event_planning_back.Contracts.Task;
 using Event_planning_back.Core.Abstractions;
 using Event_planning_back.Core.Security;

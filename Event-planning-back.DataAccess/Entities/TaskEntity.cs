@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using Event_planning_back.Contracts;
-using Event_planning_back.Contracts.Task;
+
 
 namespace Event_planning_back.DataAccess.Entities
 {

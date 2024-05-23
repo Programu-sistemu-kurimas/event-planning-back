@@ -1,9 +1,8 @@
+using Event_planning_back.Core.Abstractions;
+using Event_planning_back.Core.Models;
+using Event_planning_back.Contracts.Users;
+
 namespace Event_planning_back.Application.Services;
-
-using Contracts.Users;
-using Core.Abstractions;
-using Core.Models;
-
 
 public class UsersService : IUserService
 {
