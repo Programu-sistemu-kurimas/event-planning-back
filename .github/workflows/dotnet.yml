@@ -41,7 +41,7 @@ jobs:
       run: dotnet build --no-restore
 
     - name: Run
-      run: dotnet run &
+      run: dotnet run --no-build &
     
     - name: Wait for the application to be ready
       run: |
