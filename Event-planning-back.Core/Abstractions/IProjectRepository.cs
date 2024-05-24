@@ -19,5 +19,6 @@ public interface IProjectRepository
 
     Task<bool> DeleteUser(Guid projectId, Guid userId);
 
+    Task<Guid> Update(Guid projectId, string? projectName, string? description);
 
 }

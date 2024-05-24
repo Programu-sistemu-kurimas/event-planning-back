@@ -104,4 +104,9 @@ public class ProjectService : IProjectService
     {
         return await _projectRepository.DeleteUser(projectId, userId);
     }
+
+    public Task<Guid> UpdateProject(Guid projectId, string? projectName, string? description)
+    {
+        return _projectRepository.Update(projectId, projectName, description);
+    }
 }

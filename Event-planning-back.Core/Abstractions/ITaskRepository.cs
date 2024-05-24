@@ -1,3 +1,4 @@
+using Event_planning_back.Contracts.Task;
 using Event_planning_back.Core.Models;
 using Task = Event_planning_back.Core.Models.Task;
 
@@ -14,4 +15,7 @@ public interface ITaskRepository
     Task<List<User>?> GetUsers(Guid taskId);
 
     Task<bool> Delete(Guid guestId);
+
+    Task<Guid> Update(Guid id, string? title, string? description, State? state);
+    Task<Guid> RemoveUser(Guid userId, Guid taskId);
 }

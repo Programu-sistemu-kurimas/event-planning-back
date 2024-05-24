@@ -3,6 +3,7 @@ using Event_planning_back.Core.Abstractions;
 using Event_planning_back.Core.Models;
 using Event_planning_back.DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Task = Event_planning_back.Core.Models.Task;
 
 namespace Event_planning_back.DataAccess.Repositories;
@@ -121,5 +122,49 @@ public class TaskRepository : ITaskRepository
 
         return true;
 
+    }
+
+
+    public async Task<Guid> Update(Guid id, string? title, string? description, State? state)
+    {
+        var taskEntity = await _context.Tasks.FindAsync(id);
+        
+        
+
+        if (taskEntity == null)
+            return Guid.Empty;
+
+        if (!string.IsNullOrEmpty(title))
+            taskEntity.TaskName = title;
+
+        if (!string.IsNullOrEmpty(description))
+            taskEntity.Description = description;
+
+        if (!string.IsNullOrEmpty(state.ToString()))
+            taskEntity.TaskState = state.ToString();
+        
+        _context.Tasks.Update(taskEntity);
+
+        await _context.SaveChangesAsync();
+
+        return id;
+    }
+
+    public async Task<Guid> RemoveUser(Guid userId, Guid taskId)
+    {
+        var taskEntity = await _context.Tasks.
+            Include(t => t.AssignedUsers)
+            .FirstOrDefaultAsync(t => t.Id == taskId);
+
+        var userEntity = taskEntity?.AssignedUsers.FirstOrDefault(u => u.Id == userId);
+        
+        if (userEntity == null || taskEntity == null)
+            return Guid.Empty;
+        
+        taskEntity.AssignedUsers.Remove(userEntity);
+
+        await _context.SaveChangesAsync();
+
+        return taskId;
     }
 }

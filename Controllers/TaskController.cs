@@ -5,6 +5,7 @@ using Event_planning_back.Core.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Event_planning_back.Contracts.Project;
+using Task = Event_planning_back.Core.Models.Task;
 
 namespace Event_planning_back.Controllers;
 
@@ -69,6 +70,7 @@ public class TaskController : ControllerBase
             task.Id, 
             task.TaskName, 
             task.Description, 
+            task.TaskState.ToString(),
             userList.ToList()
         );
         
@@ -110,4 +112,35 @@ public class TaskController : ControllerBase
         return NoContent();
 
     }
+
+    [Authorize]
+    [HttpPut("update")]
+    public async Task<IActionResult> UpdateTask(UpdateTaskRequest request)
+    {
+        var token = Request.Cookies["AuthToken"];
+        if (token == null)
+            return Unauthorized();
+        
+        var userId = _jwtProvider.GetUserId(token);
+        
+        if (!await _projectService.AsserRole(userId, request.ProjectId, Role.Admin) &&
+            !await _projectService.AsserRole(userId, request.ProjectId, Role.Owner))
+            return Forbid();
+
+        var taskId = await _taskService.UpdateTask(request.TaskId, request.TaskName, request.Description, request.State );
+        
+        return await GetTask(taskId);
+
+    }
+
+    [Authorize]
+    [HttpPut("removeUser")]
+    public async Task<IActionResult> RemoveUserFromTask(RemoveUserFromTaskRequest request)
+    {
+        var guid = await _taskService.RemoveUserFromTask(request.UserId, request.TaskId);
+
+        return await GetTask(guid);
+    }
+    
+    
 }

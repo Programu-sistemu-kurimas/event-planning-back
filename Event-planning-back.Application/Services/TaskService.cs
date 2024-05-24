@@ -1,5 +1,7 @@
+using Event_planning_back.Contracts.Task;
 using Event_planning_back.Core.Abstractions;
 using Event_planning_back.Core.Models;
+using Microsoft.AspNetCore.Mvc;
 using Task = Event_planning_back.Core.Models.Task;
 
 namespace Event_planning_back.Application.Services;
@@ -49,4 +51,21 @@ public class TaskService : ITaskService
         return await _taskRepository.Delete(taskId);
     }
 
+    public async Task<Guid> UpdateTask(Guid id, string? title, string? description, string? state)
+    {
+        Guid taskId;
+        if (Enum.TryParse(state, out State newState))
+        {
+            taskId = await _taskRepository.Update(id, title, description, newState);
+            return taskId;
+        }
+
+        taskId = await _taskRepository.Update(id, title, description, null);
+        return taskId;
+    }
+
+    public async Task<Guid> RemoveUserFromTask(Guid userId, Guid taskId)
+    {
+        return await _taskRepository.RemoveUser(userId, taskId);
+    }
 }

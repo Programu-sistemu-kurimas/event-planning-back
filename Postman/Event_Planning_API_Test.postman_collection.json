@@ -432,14 +432,16 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Response code 204\", () => {",
-							"    pm.expect(pm.response.code).equal(204);",
+							"pm.test(\"Response code 201\", () => {",
+							"    pm.expect(pm.response.code).equal(201);",
 							"});",
 							"",
 							"",
 							"var jsonData = JSON.parse(pm.request.body.raw);",
+							"",
 							"pm.environment.set(\"GuestName\", jsonData.guestName);",
-							"pm.environment.set(\"GuestSurname\", jsonData.guestSurname);"
+							"pm.environment.set(\"GuestSurname\", jsonData.guestSurname);",
+							"pm.environment.set(\"GuestId\", pm.response.json().guestId);"
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -488,6 +490,89 @@
 							"     pm.expect(jsonData.length).equal(1);",
 							"    pm.expect(jsonData[0].guestName).equal(pm.environment.get(\"GuestName\"));",
 							"    pm.expect(jsonData[0].guestSurname).equal(pm.environment.get(\"GuestSurname\"));",
+							"",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}Projects/guests?projectId={{ProjectId}}",
+					"host": [
+						"{{BaseUrl}}Projects"
+					],
+					"path": [
+						"guests"
+					],
+					"query": [
+						{
+							"key": "projectId",
+							"value": "{{ProjectId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Guest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response code 204\", () => {",
+							"    pm.expect(pm.response.code).equal(204);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"projectId\": \"{{ProjectId}}\",\n  \"guestId\": \"{{GuestId}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}Guest",
+					"host": [
+						"{{BaseUrl}}Guest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Project Guests",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response code 200\", () => {",
+							"    pm.expect(pm.response.code).equal(200);",
+							"});",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"",
+							"pm.test(\"Correct data\", () => {",
+							"    pm.expect(jsonData.length).equal(0);",
 							"",
 							"})"
 						],
