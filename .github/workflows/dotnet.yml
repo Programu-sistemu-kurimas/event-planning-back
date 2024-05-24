@@ -44,7 +44,7 @@ jobs:
       run: dotnet run --no-build &
 
     - name: Run Postman collection
-      run: "newman run Postman/Event_Planning_API_Test.postman_collection.json-e Postman/EventPlanning.postman_environment.json"
+      run: "newman run Postman/Event_Planning_API_Test.postman_collection.json -e Postman/EventPlanning.postman_environment.json"
          
     - name: Stop Docker containers
       run: docker-compose down
