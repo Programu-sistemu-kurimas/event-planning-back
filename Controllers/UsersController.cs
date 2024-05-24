@@ -40,7 +40,7 @@ public class UsersController: ControllerBase
             return Conflict();
         }
         
-        return  Ok(response);
+        return Created(String.Empty, new {response});
         
     }
     
@@ -99,6 +99,40 @@ public class UsersController: ControllerBase
 
         return Ok(response);
     }
-    
+
+    [Authorize]
+    [HttpPut("update")]
+    public async Task<IActionResult> UpdateUser(UpdateUserRequest request)
+    {
+        var token = Request.Cookies["AuthToken"];
+        if (token == null)
+            return Unauthorized();
+        
+        var userId = _jwtProvider1.GetUserId(token);
+
+        var newUser = await _userService.UpdateUser(userId, request.Email, request.Name, request.Surname);
+        if (newUser == null)
+            return NotFound();
+
+        
+        return Ok(new UserResponse(newUser.Id, newUser.UserName, newUser.UserSurname, newUser.Email));
+    }
+
+    [Authorize]
+    [HttpDelete]
+    public async Task<IActionResult> DeleteUser()
+    {
+        var token = Request.Cookies["AuthToken"];
+        if (token == null)
+            return Unauthorized();
+        
+        var userId = _jwtProvider1.GetUserId(token);
+        
+        Response.Cookies.Delete("AuthToken");
+        
+        await _userService.DeleteUser(userId);
+        
+        return NoContent();
+    }
     
 }

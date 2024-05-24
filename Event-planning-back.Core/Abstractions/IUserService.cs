@@ -10,9 +10,12 @@ public interface IUserService
     Task<Guid> Register(string userName, string userSurname, string password, string email);
 
     Task<LoginUserResponse?> Login(string email, string password);
+
+    Task<Guid> DeleteUser(Guid Id);
     
     Task<List<Project>?> GetProjects(Guid userId);
     Task<List<Project>?> GetArchivedProjects(Guid userId);
     
     Task<User?> GetUserByEmail(string email);
+    Task<User?> UpdateUser(Guid userId, string? email, string? name, string? surname);
 }

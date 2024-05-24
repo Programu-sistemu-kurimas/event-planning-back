@@ -56,6 +56,11 @@ public class UsersService : IUserService
         return new LoginUserResponse(user.Id, user.UserName, user.UserSurname, user.Email, token);
     }
 
+    public async Task<Guid> DeleteUser(Guid Id)
+    {
+        return await _userRepository.Delete(Id);
+    }
+
     public async Task<List<Project>?> GetProjects(Guid userId)
     {
         return await _userRepository.GetProjects(userId);
@@ -69,5 +74,13 @@ public class UsersService : IUserService
     public async Task<User?> GetUserByEmail(string email)
     {
         return await _userRepository.GetByEmail(email);
+    }
+
+    public async Task<User?> UpdateUser(Guid userId, string? email, string? name, string? surname)
+    {
+        if (await _userRepository.Update(userId, name, surname, email) == Guid.Empty)
+            return null;
+
+        return await _userRepository.GetById(userId);
     }
 }

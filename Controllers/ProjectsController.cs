@@ -33,10 +33,11 @@ public class ProjectsController : ControllerBase
             return Unauthorized();
         
         var userId = _jwtProvider.GetUserId(token);
-        if (await _projectService.CreateProject(request.ProjectName, request.ProjectDescription, userId) == Guid.Empty)
+        var projectId = await _projectService.CreateProject(request.ProjectName, request.ProjectDescription, userId);
+        if (projectId == Guid.Empty)
             return BadRequest();
-        
-        return Created();
+
+        return Created(string.Empty, new { projectId });
     }
 
     [Authorize]
@@ -54,7 +55,7 @@ public class ProjectsController : ControllerBase
     }
 
     [Authorize]
-    [HttpPost("Archive/{projectId:guid}")]
+    [HttpPost("archive/{projectId:guid}")]
     public async Task<IActionResult> ArchiveProject(Guid projectId)
     {
         var token = Request.Cookies["AuthToken"];
@@ -73,7 +74,7 @@ public class ProjectsController : ControllerBase
     }
     
     [Authorize]
-    [HttpPost("Unarchive/{projectId:guid}")]
+    [HttpPost("unarchive/{projectId:guid}")]
     public async Task<IActionResult> UnarchiveProject(Guid projectId)
     {
         var token = Request.Cookies["AuthToken"];

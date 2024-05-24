@@ -1,0 +1,999 @@
+{
+	"info": {
+		"_postman_id": "73c14e37-308d-49e8-8391-3d68ea80b4bf",
+		"name": "Event_Planning_API_Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28785876"
+	},
+	"item": [
+		{
+			"name": "Regiser",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response code 201\", () => {",
+							"    pm.expect(pm.response.code).equal(201);",
+							"});",
+							"",
+							"var jsonData = JSON.parse(pm.request.body.raw);",
+							"pm.environment.set(\"Name\", jsonData.name);",
+							"pm.environment.set(\"Password\", jsonData.password);",
+							"pm.environment.set(\"Surname\", jsonData.surname);",
+							"pm.environment.set(\"Email\", jsonData.email);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\n{\n  \"name\": \"{{$randomFirstName}}\",\n  \"surname\": \"{{$randomLastName}}\",\n  \"password\": \"{{$randomPassword}}\",\n  \"email\": \"{{$randomEmail}}\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}Users/register",
+					"host": [
+						"{{BaseUrl}}Users"
+					],
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Regiser Worker",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response code 201\", () => {",
+							"    pm.expect(pm.response.code).equal(201);",
+							"});",
+							"",
+							"var jsonData = JSON.parse(pm.request.body.raw);",
+							"pm.environment.set(\"WorkerName\", jsonData.name);",
+							"pm.environment.set(\"WorkerSurname\", jsonData.surname);",
+							"pm.environment.set(\"WorkerEmail\", jsonData.email);",
+							"pm.environment.set(\"WorkerId\", pm.response.json().response);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\n{\n  \"name\": \"{{$randomFirstName}}\",\n  \"surname\": \"{{$randomLastName}}\",\n  \"password\": \"{{$randomPassword}}\",\n  \"email\": \"{{$randomEmail}}\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}Users/register",
+					"host": [
+						"{{BaseUrl}}Users"
+					],
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"",
+							"pm.test(\"Response code 200\", () => {",
+							"    pm.expect(pm.response.code).equal(200);",
+							"});",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"pm.environment.set(\"Token\", jsonData.token);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\n{\n  \"email\": \"{{Email}}\",\n  \"password\": \"{{Password}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}Users/login",
+					"host": [
+						"{{BaseUrl}}Users"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateProject",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response code 201\", () => {",
+							"    pm.expect(pm.response.code).equal(201);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.environment.set(\"ProjectId\", jsonData.projectId);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"projectName\": \"{{$randomFileName}}\",\n  \"projectDescription\": \"{{$randomFileName}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}Projects/create",
+					"host": [
+						"{{BaseUrl}}Projects"
+					],
+					"path": [
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User Projects",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response code 200\", () => {",
+							"    pm.expect(pm.response.code).equal(200);",
+							"});",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"",
+							"pm.test(\"Correct data\", () => {",
+							"    pm.expect(jsonData.length).equal(1);",
+							"    pm.expect(jsonData[0].projectId).equal(pm.environment.get(\"ProjectId\"));",
+							"",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}Users/projects",
+					"host": [
+						"{{BaseUrl}}Users"
+					],
+					"path": [
+						"projects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add user to Project",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response code 204\", () => {",
+							"    pm.expect(pm.response.code).equal(204);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"{{WorkerEmail}}\",\n  \"projectId\": \"{{ProjectId}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}Projects/addUser",
+					"host": [
+						"{{BaseUrl}}Projects"
+					],
+					"path": [
+						"addUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateTask",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response code 201\", () => {",
+							"    pm.expect(pm.response.code).equal(201);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.environment.set(\"TaskId\", jsonData.taskId);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"projectId\": \"{{ProjectId}}\",\n  \"taskName\": \"{{$randomCompanyName}}\",\n  \"taskDescription\": \"{{$randomCompanyName}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}Task/create",
+					"host": [
+						"{{BaseUrl}}Task"
+					],
+					"path": [
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add User To Task",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response code 204\", () => {",
+							"    pm.expect(pm.response.code).equal(204);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"taskId\": \"{{TaskId}}\",\n  \"userId\": \"{{WorkerId}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}Task/addUser",
+					"host": [
+						"{{BaseUrl}}Task"
+					],
+					"path": [
+						"addUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Task",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response code 200\", () => {",
+							"    pm.expect(pm.response.code).equal(200);",
+							"});",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"",
+							"pm.test(\"Correct data\", () => {",
+							"    pm.expect(jsonData.id).equal(pm.environment.get(\"TaskId\"));",
+							"    pm.expect(jsonData.assignedUsers.length).equal(1);",
+							"    pm.expect(jsonData.assignedUsers[0].surname).equal(pm.environment.get(\"WorkerSurname\"));",
+							"    pm.expect(jsonData.assignedUsers[0].email).equal(pm.environment.get(\"WorkerEmail\"));",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}Task/{{TaskId}}",
+					"host": [
+						"{{BaseUrl}}Task"
+					],
+					"path": [
+						"{{TaskId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Guest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response code 204\", () => {",
+							"    pm.expect(pm.response.code).equal(204);",
+							"});",
+							"",
+							"",
+							"var jsonData = JSON.parse(pm.request.body.raw);",
+							"pm.environment.set(\"GuestName\", jsonData.guestName);",
+							"pm.environment.set(\"GuestSurname\", jsonData.guestSurname);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"projectId\": \"{{ProjectId}}\",\n  \"guestName\": \"{{$randomFirstName}}\",\n  \"guestSurname\": \"{{$randomLastName}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}Guest/create",
+					"host": [
+						"{{BaseUrl}}Guest"
+					],
+					"path": [
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Project Guests",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response code 200\", () => {",
+							"    pm.expect(pm.response.code).equal(200);",
+							"});",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"",
+							"pm.test(\"Correct data\", () => {",
+							"     pm.expect(jsonData.length).equal(1);",
+							"    pm.expect(jsonData[0].guestName).equal(pm.environment.get(\"GuestName\"));",
+							"    pm.expect(jsonData[0].guestSurname).equal(pm.environment.get(\"GuestSurname\"));",
+							"",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}Projects/guests?projectId={{ProjectId}}",
+					"host": [
+						"{{BaseUrl}}Projects"
+					],
+					"path": [
+						"guests"
+					],
+					"query": [
+						{
+							"key": "projectId",
+							"value": "{{ProjectId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Project",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response code 200\", () => {",
+							"    pm.expect(pm.response.code).equal(200);",
+							"});",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"",
+							"pm.test(\"Correct project data\", () => {",
+							"    pm.expect(jsonData.id).equal(pm.environment.get(\"ProjectId\"));",
+							"",
+							"});",
+							"",
+							"pm.test(\"Correct workers data\", () => {",
+							"",
+							"    pm.expect(jsonData.workers.length).equal(2);",
+							"    ",
+							"    jsonData.workers.forEach((worker) =>{",
+							"        pm.expect(worker).to.have.property('id');",
+							"        pm.expect(worker).to.have.property('name');",
+							"        pm.expect(worker).to.have.property('role');",
+							"    })",
+							"",
+							"});",
+							"",
+							"pm.test(\"Correct task data\", () => {",
+							"    ",
+							"    pm.expect(jsonData.tasks.length).equal(1);",
+							"",
+							"    pm.expect(jsonData.tasks[0].id).equal(pm.environment.get(\"TaskId\"));",
+							"    pm.expect(jsonData.tasks[0].state).equal(\"ToDo\");",
+							"",
+							"",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}Projects/{{ProjectId}}",
+					"host": [
+						"{{BaseUrl}}Projects"
+					],
+					"path": [
+						"{{ProjectId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Archive",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response code 200\", () => {",
+							"    pm.expect(pm.response.code).equal(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}Projects/Archive/{{ProjectId}}",
+					"host": [
+						"{{BaseUrl}}Projects"
+					],
+					"path": [
+						"Archive",
+						"{{ProjectId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User Projects",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response code 200\", () => {",
+							"    pm.expect(pm.response.code).equal(200);",
+							"});",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"",
+							"pm.test(\"Correct data\", () => {",
+							"    pm.expect(jsonData.length).equal(0);",
+							"",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}Users/projects",
+					"host": [
+						"{{BaseUrl}}Users"
+					],
+					"path": [
+						"projects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unarchive",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response code 200\", () => {",
+							"    pm.expect(pm.response.code).equal(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}Projects/Unarchive/{{ProjectId}}",
+					"host": [
+						"{{BaseUrl}}Projects"
+					],
+					"path": [
+						"Unarchive",
+						"{{ProjectId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User Projects",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response code 200\", () => {",
+							"    pm.expect(pm.response.code).equal(200);",
+							"});",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"",
+							"pm.test(\"Correct data\", () => {",
+							"    pm.expect(jsonData.length).equal(1);",
+							"    pm.expect(jsonData[0].projectId).equal(pm.environment.get(\"ProjectId\"));",
+							"",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}Users/projects",
+					"host": [
+						"{{BaseUrl}}Users"
+					],
+					"path": [
+						"projects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User From project",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response code 200\", () => {",
+							"    pm.expect(pm.response.code).equal(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"{{WorkerEmail}}\",\n  \"projectId\": \"{{ProjectId}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}Projects/deleteUser",
+					"host": [
+						"{{BaseUrl}}Projects"
+					],
+					"path": [
+						"deleteUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Task",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response code 204\", () => {",
+							"    pm.expect(pm.response.code).equal(204);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}Task/{{TaskId}}",
+					"host": [
+						"{{BaseUrl}}Task"
+					],
+					"path": [
+						"{{TaskId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Project",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response code 200\", () => {",
+							"    pm.expect(pm.response.code).equal(200);",
+							"});",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"",
+							"pm.test(\"Correct project data\", () => {",
+							"    pm.expect(jsonData.id).equal(pm.environment.get(\"ProjectId\"));",
+							"",
+							"});",
+							"",
+							"pm.test(\"Correct workers data\", () => {",
+							"",
+							"    pm.expect(jsonData.workers.length).equal(1);",
+							"",
+							"    pm.expect(jsonData.workers[0].name).equal(pm.environment.get(\"Name\"));",
+							"    pm.expect(jsonData.workers[0].role).equal(\"Owner\");",
+							"",
+							"})",
+							"",
+							"pm.test(\"Correct task data\", () => {",
+							"    ",
+							"    pm.expect(jsonData.tasks.length).equal(0);",
+							"",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}Projects/{{ProjectId}}",
+					"host": [
+						"{{BaseUrl}}Projects"
+					],
+					"path": [
+						"{{ProjectId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User info",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response code 200\", () => {",
+							"    pm.expect(pm.response.code).equal(200);",
+							"});",
+							"",
+							"var request = JSON.parse(pm.request.body.raw);",
+							"var response = JSON.parse(responseBody);",
+							"",
+							"pm.test(\"Update user data\", () => {",
+							"    pm.expect(request.name).equal(response.userName);",
+							"    pm.expect(request.surname).equal(response.userSurname);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"{{$randomFirstName}}\",\n  \"surname\": \"{{$randomLastName}}\",\n  \"email\": \"{{Email}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}Users/update",
+					"host": [
+						"{{BaseUrl}}Users"
+					],
+					"path": [
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Project",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response code 204\", () => {",
+							"    pm.expect(pm.response.code).equal(204);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}Projects/{{ProjectId}}",
+					"host": [
+						"{{BaseUrl}}Projects"
+					],
+					"path": [
+						"{{ProjectId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User Projects",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response code 200\", () => {",
+							"    pm.expect(pm.response.code).equal(200);",
+							"});",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"",
+							"pm.test(\"Correct data\", () => {",
+							"    pm.expect(jsonData.length).equal(0);",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}Users/projects",
+					"host": [
+						"{{BaseUrl}}Users"
+					],
+					"path": [
+						"projects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response code 204\", () => {",
+							"    pm.expect(pm.response.code).equal(204);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUrl}}Users",
+					"host": [
+						"{{BaseUrl}}Users"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

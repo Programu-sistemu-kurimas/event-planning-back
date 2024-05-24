@@ -44,7 +44,7 @@ public class TaskController : ControllerBase
         if (taskId == Guid.Empty)
             return BadRequest();
 
-        return Ok(taskId);
+        return Created(String.Empty, new {taskId});
     }
 
     [Authorize]
@@ -76,14 +76,14 @@ public class TaskController : ControllerBase
     }
 
     [Authorize]
-    [HttpPost("AddUser")]
+    [HttpPost("addUser")]
     public async Task<IActionResult> AddUserToTask(AddUserToTaskRequest request)
     {
         var response = await _taskService.AddUserToTask(request.TaskId, request.UserId);
         if (response == Guid.Empty)
             return NotFound();
 
-        return Ok(response);
+        return Created();
     }
 
     [Authorize]
@@ -107,7 +107,7 @@ public class TaskController : ControllerBase
         if(!await _taskService.DeleteTask(taskId))
             return BadRequest();
 
-        return Ok();
+        return NoContent();
 
     }
 }
