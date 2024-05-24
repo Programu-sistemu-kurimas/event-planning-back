@@ -44,7 +44,7 @@ Content-Type: application/json
 
 
 ###
-GET http://localhost:5142/Projects/43692b9c-c0e3-41d6-b597-39fd7e9fb6f6
+GET http://localhost:5142/Projects/5c824f90-e46c-4a31-92f4-2337bef8836c
 Accept: application/json
 
 ###
@@ -69,12 +69,12 @@ POST http://localhost:5142/Task/create
 Content-Type: application/json
 
 {
-  "projectId": "43692b9c-c0e3-41d6-b597-39fd7e9fb6f6",
+  "projectId": "19f83f48-6aea-4e7f-8ecf-a5f73bf1d01d",
   "taskName": "Task 1"
 }
 
 ###
-GET http://localhost:5142/Task/cc9a92b9-2b77-44f6-9c60-a83f41990f56
+GET http://localhost:5142/Task/05a1ef68-ac8f-4af1-ad66-5d1af5d9bd78
 Accept: application/json
 
 
@@ -83,10 +83,29 @@ POST http://localhost:5142/Task/AddUser
 Content-Type: application/json
 
 {
-  "userId": "f52d134c-62d7-4f47-b15a-f793d26e4e0e",
-  "taskId": "cc9a92b9-2b77-44f6-9c60-a83f41990f56"
+  "userId": "f6177ae2-a476-4bce-9c32-b69414fc2e2a",
+  "taskId": "05a1ef68-ac8f-4af1-ad66-5d1af5d9bd78"
 }
 
+###
+PUT http://localhost:5142/Task/removeUser
+Content-Type: application/json
+
+{
+  "userId": "f6177ae2-a476-4bce-9c32-b69414fc2e2a",
+  "taskId": "05a1ef68-ac8f-4af1-ad66-5d1af5d9bd78"
+}
+
+###
+PUT http://localhost:5142/Task/update
+Content-Type: application/json
+
+{
+  "taskId": "05a1ef68-ac8f-4af1-ad66-5d1af5d9bd78",
+  "projectId": "19f83f48-6aea-4e7f-8ecf-a5f73bf1d01d",
+  "taskName": "string",
+  "description": "Task 2"
+}
 ###
 POST http://localhost:5142/Guest/create
 Content-Type: application/json
@@ -102,7 +121,7 @@ GET http://localhost:5142/Projects/guests?projectId=2cc25a54-6e02-4143-9ed6-b222
 Accept: application/json
 
 ###
-DELETE http://localhost:5142/Projects/590a1429-808d-4d14-be84-69a155fa76f2
+DELETE http://localhost:5142/Projects/2cc25a54-6e02-4143-9ed6-b2222f5b3c17
 
 
 ###
@@ -134,3 +153,13 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:5142/Users
+
+###
+PUT http://localhost:5142/Projects/update
+Content-Type: application/json
+
+{
+  "projectId": "19f83f48-6aea-4e7f-8ecf-a5f73bf1d01d",
+  "projectName": "string",
+  "description": "string"
+}

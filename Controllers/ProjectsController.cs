@@ -165,10 +165,23 @@ public class ProjectsController : ControllerBase
     [HttpGet("guests")]
     public async Task<IActionResult> GetGuests(Guid projectId)
     {
+        var token = Request.Cookies["AuthToken"];
+        if (token == null)
+            return Unauthorized();
+        
+        var userId = _jwtProvider.GetUserId(token);
+        
+        if(!await _projectService.AsserRole(userId, projectId, Role.Admin) &&
+           !await _projectService.AsserRole(userId, projectId, Role.Owner) &&
+           !await _projectService.AsserRole(userId, projectId, Role.User))
+            return Forbid();
+        
         var guestsList = await _projectService.GetGuests(projectId);
        
         if (guestsList == null)
             return NotFound();
+        
+        
         
         var response = guestsList.Select(g => new GuestResponse(g.Id,
             g.Name,
@@ -217,6 +230,31 @@ public class ProjectsController : ControllerBase
             return BadRequest();
 
         return Ok();
+
+
+    }
+    
+    [Authorize]
+    [HttpPut("update")]
+    public async Task<IActionResult> UpdateProject(UpdateProjectRequest request)
+    {
+        var token = Request.Cookies["AuthToken"];
+        if (token == null)
+            return Unauthorized();
+        
+        var userId = _jwtProvider.GetUserId(token);
+
+        if(!await _projectService.AsserRole(userId, request.ProjectId, Role.Admin) &&
+           !await _projectService.AsserRole(userId, request.ProjectId, Role.Owner))
+            return Forbid();
+
+        var projectId =
+            await _projectService.UpdateProject(request.ProjectId, request.ProjectName, request.Description);
+
+        if (projectId == Guid.Empty)
+            return NotFound();
+        
+        return await GetProject(projectId);
 
 
     }

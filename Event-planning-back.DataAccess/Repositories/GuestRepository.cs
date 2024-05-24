@@ -1,6 +1,7 @@
 using Event_planning_back.Core.Abstractions;
 using Event_planning_back.Core.Models;
 using Event_planning_back.DataAccess.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Event_planning_back.DataAccess.Repositories;
 
@@ -32,7 +33,21 @@ public class GuestRepository : IGuestRepository
         await _context.Guests.AddAsync(guestEntity);
         await _context.SaveChangesAsync();
 
-        return projectEntity.Id;
+        return guestEntity.Id;
+    }
+
+    public async Task<Guid> Delete(Guid guestId)
+    {
+        var guestEntity = await _context.Guests.FindAsync(guestId);
+
+        if (guestEntity == null)
+            return Guid.Empty;
+
+        _context.Guests.Remove(guestEntity);
+
+        await _context.SaveChangesAsync();
+
+        return guestEntity.Id;
     }
 
    

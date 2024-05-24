@@ -6,4 +6,5 @@ public record TaskResponse(
     Guid Id,
     string TaskName,
     string? TaskDescription,
+    string State,
     List<UserResponseList> AssignedUsers);

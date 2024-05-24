@@ -69,6 +69,24 @@ public class ProjectRepository : IProjectRepository
         return projectEntity.Id;
     }
 
+    public async Task<Guid> Update(Guid projectId, string? projectName, string? description)
+    {
+        var projectEntity = await _context.Projects.FindAsync(projectId);
+
+        if (projectEntity == null)
+            return Guid.Empty;
+
+        if (!string.IsNullOrEmpty(projectName))
+            projectEntity.ProjectName = projectName;
+
+        if (!string.IsNullOrEmpty(description))
+            projectEntity.Description = description;
+
+        await _context.SaveChangesAsync();
+
+        return projectId;
+
+    }
     public async Task<Project?> GetById(Guid id)
     {
         var projectEntity = await _context.Projects

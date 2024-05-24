@@ -12,6 +12,11 @@ public class GuestService : IGuestService
         _guestRepository = guestRepository;
     }
 
+    public async Task<Guid> DeleteGuest(Guid guestId)
+    {
+        return await _guestRepository.Delete(guestId);
+    }
+
     public async Task<Guid> AddGuest(Guid projectId, string guestName, string guestSurname)
     {
         var guest = Guest.Create(Guid.NewGuid(), guestName, guestSurname);
