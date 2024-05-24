@@ -1,4 +1,4 @@
-name: Build and Run .NET Application
+name: .NET Build, Run and Test
 
 on:
   push:
@@ -7,37 +7,41 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build-and-run:
+  build-test:
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
-    
+
     - name: Build the Docker image
       run: docker-compose build
-      
+
+    - name: Install Newman
+      run: npm install -g newman
+
     - name: Start PostgreSQL and Apache containers
       run: docker-compose up -d
-      
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
-        
+
     - name: Restore dependencies
       run: dotnet restore
-      
+
     - name: Build
       run: dotnet build --no-restore
-      
+
     - name: Run
       run: dotnet run --no-build &
-      
-    - name: Wait for the application to be ready
-      run: |
-        echo "Waiting for the application to be ready..."
-        sleep 30
 
-    - name: Save process ID
-      run: echo $! > app_pid.txt
-      shell: bash
+    - name: Run Postman collection
+      run: |
+        newman run Postman/Event_Planning_API_Test.postman_collection.json \
+          --environment Postman/EventPlanning.postman_environment.json \
+          --reporters cli,junit \
+          --reporter-junit-export newman-results.xml
+
+    - name: Stop Docker containers
+      run: docker-compose down
