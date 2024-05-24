@@ -43,9 +43,13 @@ jobs:
     - name: Run
       run: dotnet run --no-build &
 
-    - name: "Run tests"
-      run: "newman run Postman/Event_Planning_API_Test.postman_collection.json -e Postman/EventPlanning.postman_environment.json -r htmlextra --reporter-htmlextra-export htmlreport.html --reporter-htmlextra-darkTheme  > runreport1.html"
-
+    - name: Run Postman collection
+      run: |
+        newman run Postman/Event_Planning_API_Test.postman_collection.json \
+          -e Postman/EventPlanning.postman_environment.json \
+          -r htmlextra \
+          --reporter-htmlextra-export htmlreport.html \
+          --reporter-htmlextra-darkTheme
 
     - name: Stop Docker containers
       run: docker-compose down
