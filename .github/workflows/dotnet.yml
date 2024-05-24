@@ -38,8 +38,8 @@ jobs:
 
     - name: Run Postman collection
       run: |
-        newman run "Postman/Event_Planning_API_Test.postman_collection.json" \
-          --environment "Postman/EventPlanning.postman_environment.json" \
+        newman run "~/Postman/Event_Planning_API_Test.postman_collection.json" \
+          --environment "~/Postman/EventPlanning.postman_environment.json" \
           --reporters cli,junit \
           --reporter-junit-export newman-results.xml
 
