@@ -29,19 +29,23 @@ jobs:
 
     - name: Restore dependencies
       run: dotnet restore
-
+    - uses: actions/setup-node@v2
+      with: 
+        node-version: "22"
+    - name: "Install newman"
+      run: "npm install -g newman"
+    - name: "Install newman reporter"
+      run: "npm install -g newman-reporter-htmlextra"
+    
     - name: Build
       run: dotnet build --no-restore
 
     - name: Run
       run: dotnet run --no-build &
 
-    - name: Run Postman collection
-      run: |
-        newman run Event_Planning_API_Test.postman_collection.json \
-          --environment EventPlanning.postman_environment.json \
-          --reporters cli,junit \
-          --reporter-junit-export newman-results.xml
+    - name: "Run tests"
+      run: "newman run Event_Planning_API_Test.postman_collection.json -e EventPlanning.postman_environment.json  -r htmlextra --reporter-htmlextra-export htmlreport.html --reporter-htmlextra-darkTheme  > runreport1.html"
+
 
     - name: Stop Docker containers
       run: docker-compose down
