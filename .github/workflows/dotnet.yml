@@ -39,6 +39,9 @@ jobs:
     
     - name: Build
       run: dotnet build --no-restore
+      
+    - name: Update database
+      run: dotnet ef database update
 
     - name: Run
       run: dotnet run --no-build &
