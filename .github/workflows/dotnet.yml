@@ -31,7 +31,7 @@ jobs:
       run: dotnet restore
     - uses: actions/setup-node@v2
       with: 
-        node-version: "22"
+        node-version: "20"
     - name: "Install newman"
       run: "npm install -g newman"
     - name: "Install newman reporter"
