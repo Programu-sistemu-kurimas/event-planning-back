@@ -1,5 +1,7 @@
 
 
+using System.ComponentModel.DataAnnotations;
+
 namespace Event_planning_back.DataAccess.Entities;
 public class UserEntity
 {
@@ -15,4 +17,6 @@ public class UserEntity
     public ICollection<TaskEntity> Tasks { get; set; } = new List<TaskEntity>();
 
     public ICollection<ProjectEntity> Projects { get; private set; } = new List<ProjectEntity>();
+    
+    [Timestamp] public byte[] RowVersion { get; set; }
 }

@@ -53,5 +53,18 @@ public class EventPlanningDbContext : DbContext
         modelBuilder.Entity<ProjectEntity>()
             .Property(p => p.IsArchived)
             .HasDefaultValue(false);
+        
+        modelBuilder.Entity<UserEntity>()
+            .Property(p => p.RowVersion)
+            .IsRowVersion();
+        
+        modelBuilder.Entity<ProjectEntity>()
+            .Property(p => p.RowVersion)
+            .IsRowVersion();
+        
+        modelBuilder.Entity<TaskEntity>()
+            .Property(p => p.RowVersion)
+            .IsRowVersion();
+        
     }
 }
