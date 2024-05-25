@@ -5,7 +5,7 @@
 namespace Event_planning_back.Migrations
 {
     /// <inheritdoc />
-    public partial class RowVersions : Migration
+    public partial class Optimisticlock : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

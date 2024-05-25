@@ -24,6 +24,18 @@ public class EventPlanningDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<UserEntity>()
+            .Property(p => p.RowVersion)
+            .IsRowVersion();
+        
+        modelBuilder.Entity<ProjectEntity>()
+            .Property(p => p.RowVersion)
+            .IsRowVersion();
+        
+        modelBuilder.Entity<TaskEntity>()
+            .Property(p => p.RowVersion)
+            .IsRowVersion();
+        
+        modelBuilder.Entity<UserEntity>()
             .HasMany(u => u.Projects)
             .WithMany(p => p.Users)
             .UsingEntity<UserProjectEntity>(j => j
@@ -54,17 +66,7 @@ public class EventPlanningDbContext : DbContext
             .Property(p => p.IsArchived)
             .HasDefaultValue(false);
         
-        modelBuilder.Entity<UserEntity>()
-            .Property(p => p.RowVersion)
-            .IsRowVersion();
-        
-        modelBuilder.Entity<ProjectEntity>()
-            .Property(p => p.RowVersion)
-            .IsRowVersion();
-        
-        modelBuilder.Entity<TaskEntity>()
-            .Property(p => p.RowVersion)
-            .IsRowVersion();
+       
         
     }
 }

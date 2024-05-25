@@ -72,10 +72,13 @@ public class ProjectRepository : IProjectRepository
     public async Task<Guid> Update(Guid projectId, string? projectName, string? description)
     {
         var projectEntity = await _context.Projects.FindAsync(projectId);
+        
 
         if (projectEntity == null)
             return Guid.Empty;
 
+        _context.Entry(projectEntity).OriginalValues["RowVersion"] = projectEntity.RowVersion;
+        
         if (!string.IsNullOrEmpty(projectName))
             projectEntity.ProjectName = projectName;
 
@@ -150,15 +153,15 @@ public class ProjectRepository : IProjectRepository
     public async Task<Role> GetRole(Project project, User user)
     {
         var userProjectEntity = await _context.UserProject.FindAsync(user.Id, project.Id);
-        
+    
         if (userProjectEntity == null)
             return Role.User;
-        
+    
         var role = (Role)Enum.Parse(typeof(Role), userProjectEntity.Role);
-        
+    
         return role;
-
     }
+
 
     public async Task<Guid> Archive(Guid projectId)
     {

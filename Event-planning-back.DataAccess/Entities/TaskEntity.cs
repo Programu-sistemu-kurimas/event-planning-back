@@ -19,7 +19,8 @@ namespace Event_planning_back.DataAccess.Entities
         public ProjectEntity Project { get; set; } = new ProjectEntity();
 
         public ICollection<UserEntity> AssignedUsers { get; set; } = new List<UserEntity>();
-
-        [Timestamp] public byte[] RowVersion { get; set; }
+        
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
     }
 }

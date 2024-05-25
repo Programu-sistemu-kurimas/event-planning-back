@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Event_planning_back.Migrations
 {
     [DbContext(typeof(EventPlanningDbContext))]
-    [Migration("20240525121232_RowVersions")]
-    partial class RowVersions
+    [Migration("20240525154723_Optimisticlock")]
+    partial class Optimisticlock
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

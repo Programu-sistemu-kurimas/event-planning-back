@@ -18,7 +18,8 @@ public class ProjectEntity
     public ICollection<TaskEntity> Tasks{ get; set; } = new List<TaskEntity>();
 
     public ICollection<GuestEntity> Guests { get; set; } = new List<GuestEntity>();
-
-    [Timestamp] public byte[] RowVersion { get; set; }
+    
+    [Timestamp]
+    public byte[] RowVersion { get; set; }
 
 }

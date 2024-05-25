@@ -18,5 +18,6 @@ public class UserEntity
 
     public ICollection<ProjectEntity> Projects { get; private set; } = new List<ProjectEntity>();
     
-    [Timestamp] public byte[] RowVersion { get; set; }
+    [Timestamp]
+    public byte[] RowVersion { get; set; }
 }
