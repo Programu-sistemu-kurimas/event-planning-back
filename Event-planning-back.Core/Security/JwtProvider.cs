@@ -22,7 +22,7 @@ public class JwtProvider : IJwtProvider
 
     public string GenerateToken(User user)
     {
-        Claim[] claims = [new("userId", user.Id.ToString()), new ("userEmail", user.Email)];
+        Claim[] claims = [new("userId", user.Id.ToString()), new ("userEmail", user.Email), new ("userName", user.UserSurname)];
 
         var signingCredentials = new SigningCredentials(
             new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.SecretKey)),
@@ -50,4 +50,14 @@ public class JwtProvider : IJwtProvider
         return Guid.Empty;
 
     }
+    
+    public string GetUserName(string token)
+    {  
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var jwtToken = tokenHandler.ReadJwtToken(token);
+        var userName = jwtToken.Claims.FirstOrDefault(c => c.Type == "userName")?.Value;
+        
+        return userName ?? string.Empty;
+    }
+    
 }

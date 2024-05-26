@@ -95,6 +95,7 @@ public class ProjectRepository : IProjectRepository
         var projectEntity = await _context.Projects
             .Include(p => p.Users)
             .Include(p => p.Tasks)
+            .AsSplitQuery()
             .FirstOrDefaultAsync(p => p.Id == id);
 
         if (projectEntity == null)

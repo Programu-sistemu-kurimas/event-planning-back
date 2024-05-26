@@ -11,7 +11,7 @@ Content-Type: application/json
   "email": "john@example.com",
   "password": "password123"
 }
-
+c
 ###
 POST http://localhost:5142/Users/register
 Content-Type: application/json

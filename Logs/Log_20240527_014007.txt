@@ -1,0 +1,275 @@
+----- Request Information -----
+User id: 00000000-0000-0000-0000-000000000000
+User name:Anonymous
+Controller: Event_planning_back.Controllers.UsersController
+Action: Register
+Method: POST
+Path: /Users/register
+Start Time: 2024-05-26T22:40:19.2696046Z
+End Time: 2024-05-26T22:40:21.1065752Z
+Duration: 1836.9706 ms
+------------------------------
+----- Request Information -----
+User id: 00000000-0000-0000-0000-000000000000
+User name:Anonymous
+Controller: Event_planning_back.Controllers.UsersController
+Action: Register
+Method: POST
+Path: /Users/register
+Start Time: 2024-05-26T22:40:21.1510544Z
+End Time: 2024-05-26T22:40:21.5459881Z
+Duration: 394.9337 ms
+------------------------------
+----- Request Information -----
+User id: 00000000-0000-0000-0000-000000000000
+User name:Anonymous
+Controller: Event_planning_back.Controllers.UsersController
+Action: Login
+Method: POST
+Path: /Users/login
+Start Time: 2024-05-26T22:40:21.5688508Z
+End Time: 2024-05-26T22:40:21.9818312Z
+Duration: 412.9804 ms
+------------------------------
+----- Request Information -----
+User id: 8a647333-0ed4-40f5-814c-64e531a92884
+User name:Steuber
+Controller: Event_planning_back.Controllers.ProjectsController
+Action: CreateProject
+Method: POST
+Path: /Projects/create
+Start Time: 2024-05-26T22:40:22.0551914Z
+End Time: 2024-05-26T22:40:22.2747494Z
+Duration: 219.558 ms
+------------------------------
+----- Request Information -----
+User id: 8a647333-0ed4-40f5-814c-64e531a92884
+User name:Steuber
+Controller: Event_planning_back.Controllers.UsersController
+Action: GetUserProjects
+Method: GET
+Path: /Users/projects
+Start Time: 2024-05-26T22:40:22.3004722Z
+End Time: 2024-05-26T22:40:22.3229346Z
+Duration: 22.4624 ms
+------------------------------
+----- Request Information -----
+User id: 8a647333-0ed4-40f5-814c-64e531a92884
+User name:Steuber
+Controller: Event_planning_back.Controllers.ProjectsController
+Action: AddUserToProject
+Method: POST
+Path: /Projects/addUser
+Start Time: 2024-05-26T22:40:22.3432065Z
+End Time: 2024-05-26T22:40:22.3984505Z
+Duration: 55.244 ms
+------------------------------
+----- Request Information -----
+User id: 8a647333-0ed4-40f5-814c-64e531a92884
+User name:Steuber
+Controller: Event_planning_back.Controllers.TaskController
+Action: AddTask
+Method: POST
+Path: /Task/create
+Start Time: 2024-05-26T22:40:22.4194327Z
+End Time: 2024-05-26T22:40:22.4702201Z
+Duration: 50.7874 ms
+------------------------------
+----- Request Information -----
+User id: 8a647333-0ed4-40f5-814c-64e531a92884
+User name:Steuber
+Controller: Event_planning_back.Controllers.TaskController
+Action: AddUserToTask
+Method: POST
+Path: /Task/addUser
+Start Time: 2024-05-26T22:40:22.4889325Z
+End Time: 2024-05-26T22:40:22.5262565Z
+Duration: 37.324 ms
+------------------------------
+----- Request Information -----
+User id: 8a647333-0ed4-40f5-814c-64e531a92884
+User name:Steuber
+Controller: Event_planning_back.Controllers.TaskController
+Action: GetTask
+Method: GET
+Path: /Task/57173a98-12b7-4823-88b9-400f606c6d41
+Start Time: 2024-05-26T22:40:22.5450202Z
+End Time: 2024-05-26T22:40:22.5988196Z
+Duration: 53.7994 ms
+------------------------------
+----- Request Information -----
+User id: 8a647333-0ed4-40f5-814c-64e531a92884
+User name:Steuber
+Controller: Event_planning_back.Controllers.GuestController
+Action: AddNewGuestToProject
+Method: POST
+Path: /Guest/create
+Start Time: 2024-05-26T22:40:22.6168104Z
+End Time: 2024-05-26T22:40:22.6479718Z
+Duration: 31.1614 ms
+------------------------------
+----- Request Information -----
+User id: 8a647333-0ed4-40f5-814c-64e531a92884
+User name:Steuber
+Controller: Event_planning_back.Controllers.ProjectsController
+Action: GetGuests
+Method: GET
+Path: /Projects/guests
+Start Time: 2024-05-26T22:40:22.6650046Z
+End Time: 2024-05-26T22:40:22.6950146Z
+Duration: 30.01 ms
+------------------------------
+----- Request Information -----
+User id: 8a647333-0ed4-40f5-814c-64e531a92884
+User name:Steuber
+Controller: Event_planning_back.Controllers.GuestController
+Action: DeleteGuest
+Method: DELETE
+Path: /Guest
+Start Time: 2024-05-26T22:40:22.7115810Z
+End Time: 2024-05-26T22:40:22.7469257Z
+Duration: 35.3447 ms
+------------------------------
+----- Request Information -----
+User id: 8a647333-0ed4-40f5-814c-64e531a92884
+User name:Steuber
+Controller: Event_planning_back.Controllers.ProjectsController
+Action: GetGuests
+Method: GET
+Path: /Projects/guests
+Start Time: 2024-05-26T22:40:22.7628970Z
+End Time: 2024-05-26T22:40:22.7761117Z
+Duration: 13.2147 ms
+------------------------------
+----- Request Information -----
+User id: 8a647333-0ed4-40f5-814c-64e531a92884
+User name:Steuber
+Controller: Event_planning_back.Controllers.ProjectsController
+Action: GetProject
+Method: GET
+Path: /Projects/77315fee-ad3e-4771-b2d7-c3614bbe73c4
+Start Time: 2024-05-26T22:40:22.7921947Z
+End Time: 2024-05-26T22:40:22.8076419Z
+Duration: 15.4472 ms
+------------------------------
+----- Request Information -----
+User id: 8a647333-0ed4-40f5-814c-64e531a92884
+User name:Steuber
+Controller: Event_planning_back.Controllers.ProjectsController
+Action: ArchiveProject
+Method: POST
+Path: /Projects/Archive/77315fee-ad3e-4771-b2d7-c3614bbe73c4
+Start Time: 2024-05-26T22:40:22.8273802Z
+End Time: 2024-05-26T22:40:22.8487580Z
+Duration: 21.3778 ms
+------------------------------
+----- Request Information -----
+User id: 8a647333-0ed4-40f5-814c-64e531a92884
+User name:Steuber
+Controller: Event_planning_back.Controllers.UsersController
+Action: GetUserProjects
+Method: GET
+Path: /Users/projects
+Start Time: 2024-05-26T22:40:22.8627243Z
+End Time: 2024-05-26T22:40:22.8664657Z
+Duration: 3.7414 ms
+------------------------------
+----- Request Information -----
+User id: 8a647333-0ed4-40f5-814c-64e531a92884
+User name:Steuber
+Controller: Event_planning_back.Controllers.ProjectsController
+Action: UnarchiveProject
+Method: POST
+Path: /Projects/Unarchive/77315fee-ad3e-4771-b2d7-c3614bbe73c4
+Start Time: 2024-05-26T22:40:22.8831205Z
+End Time: 2024-05-26T22:40:22.8992299Z
+Duration: 16.1094 ms
+------------------------------
+----- Request Information -----
+User id: 8a647333-0ed4-40f5-814c-64e531a92884
+User name:Steuber
+Controller: Event_planning_back.Controllers.UsersController
+Action: GetUserProjects
+Method: GET
+Path: /Users/projects
+Start Time: 2024-05-26T22:40:22.9154439Z
+End Time: 2024-05-26T22:40:22.9186532Z
+Duration: 3.2093 ms
+------------------------------
+----- Request Information -----
+User id: 8a647333-0ed4-40f5-814c-64e531a92884
+User name:Steuber
+Controller: Event_planning_back.Controllers.ProjectsController
+Action: DeleteUserFromProject
+Method: PUT
+Path: /Projects/deleteUser
+Start Time: 2024-05-26T22:40:22.9356727Z
+End Time: 2024-05-26T22:40:22.9749400Z
+Duration: 39.2673 ms
+------------------------------
+----- Request Information -----
+User id: 8a647333-0ed4-40f5-814c-64e531a92884
+User name:Steuber
+Controller: Event_planning_back.Controllers.TaskController
+Action: DeleteTask
+Method: DELETE
+Path: /Task/57173a98-12b7-4823-88b9-400f606c6d41
+Start Time: 2024-05-26T22:40:22.9905107Z
+End Time: 2024-05-26T22:40:23.0151826Z
+Duration: 24.6719 ms
+------------------------------
+----- Request Information -----
+User id: 8a647333-0ed4-40f5-814c-64e531a92884
+User name:Steuber
+Controller: Event_planning_back.Controllers.ProjectsController
+Action: GetProject
+Method: GET
+Path: /Projects/77315fee-ad3e-4771-b2d7-c3614bbe73c4
+Start Time: 2024-05-26T22:40:23.0307805Z
+End Time: 2024-05-26T22:40:23.0352466Z
+Duration: 4.4661 ms
+------------------------------
+----- Request Information -----
+User id: 8a647333-0ed4-40f5-814c-64e531a92884
+User name:Steuber
+Controller: Event_planning_back.Controllers.UsersController
+Action: UpdateUser
+Method: PUT
+Path: /Users/update
+Start Time: 2024-05-26T22:40:23.0525732Z
+End Time: 2024-05-26T22:40:23.0718693Z
+Duration: 19.2961 ms
+------------------------------
+----- Request Information -----
+User id: 8a647333-0ed4-40f5-814c-64e531a92884
+User name:Steuber
+Controller: Event_planning_back.Controllers.ProjectsController
+Action: DeleteProject
+Method: DELETE
+Path: /Projects/77315fee-ad3e-4771-b2d7-c3614bbe73c4
+Start Time: 2024-05-26T22:40:23.0886228Z
+End Time: 2024-05-26T22:40:23.1064280Z
+Duration: 17.8052 ms
+------------------------------
+----- Request Information -----
+User id: 8a647333-0ed4-40f5-814c-64e531a92884
+User name:Steuber
+Controller: Event_planning_back.Controllers.UsersController
+Action: GetUserProjects
+Method: GET
+Path: /Users/projects
+Start Time: 2024-05-26T22:40:23.1220153Z
+End Time: 2024-05-26T22:40:23.1247889Z
+Duration: 2.7736 ms
+------------------------------
+----- Request Information -----
+User id: 8a647333-0ed4-40f5-814c-64e531a92884
+User name:Steuber
+Controller: Event_planning_back.Controllers.UsersController
+Action: DeleteUser
+Method: DELETE
+Path: /Users
+Start Time: 2024-05-26T22:40:23.1425174Z
+End Time: 2024-05-26T22:40:23.1692575Z
+Duration: 26.7401 ms
+------------------------------
