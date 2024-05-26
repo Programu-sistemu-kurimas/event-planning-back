@@ -42,57 +42,59 @@ public class TaskRepository : ITaskRepository
 
     }
 
-    private async Task<TaskEntity?> GetEntityById(Guid taskId)
+
+    public async Task<Task?> GetById(Guid taskId)
     {
         var taskEntity = await _context.Tasks
             .Include(t => t.AssignedUsers)
             .Include(t => t.Project)
             .FirstOrDefaultAsync(t => t.Id == taskId);
-        return taskEntity;
-    }
-
-    public async Task<Task?> GetById(Guid taskId)
-    {
-        var taskEntity = await GetEntityById(taskId);
-        
+    
         if (taskEntity == null)
             return null;
+
         var users = taskEntity.AssignedUsers.Select(u =>
-            User.Create(u.Id, 
-                u.UserName, 
-                u.UserSurname, 
-                u.PasswordHash, 
-                u.Email).User)
+                User.Create(u.Id, 
+                    u.UserName, 
+                    u.UserSurname, 
+                    u.PasswordHash, 
+                    u.Email).User)
             .ToList();
-        
+    
         var state = (State)Enum.Parse(typeof(State), taskEntity.TaskState);
+        
         var project = Project.Create(
             taskEntity.Project.Id, 
             taskEntity.Project.ProjectName,
             taskEntity.Project.Description);
-        
-        var task = Task.Create(
+    
+        return Task.Create(
             taskEntity.Id,
             taskEntity.TaskName,
             taskEntity.Description,
             state,
             users,
             project
-            );
-
-        return task;
+        );
 
     }
 
     public async Task<Guid> AddUser(Guid taskId, Guid userId)
     {
         var userEntity = await _context.Users.FindAsync(userId);
-        var taskEntity = await GetEntityById(taskId);
-        
+        if (userEntity == null)
+            return Guid.Empty;
 
-        if (userEntity == null || taskEntity == null)
+        var taskEntity = await _context.Tasks
+            .Include(t => t.AssignedUsers)
+            .FirstOrDefaultAsync(t => t.Id == taskId);
+
+        
+        if (taskEntity == null)
             return Guid.Empty;
         
+        _context.Tasks.Entry(taskEntity).OriginalValues["RowVersion"] = taskEntity.RowVersion;
+
         taskEntity.AssignedUsers.Add(userEntity);
         await _context.SaveChangesAsync();
 
@@ -101,7 +103,9 @@ public class TaskRepository : ITaskRepository
 
     public async Task<List<User>?> GetUsers(Guid taskId)
     {
-        var taskEntity = await GetEntityById(taskId);
+        var taskEntity =  await _context.Tasks
+            .Include(t => t.AssignedUsers)
+            .FirstOrDefaultAsync(t => t.Id == taskId);
 
         return taskEntity?.AssignedUsers.Select(u =>
             User.Create(u.Id, 
@@ -128,11 +132,11 @@ public class TaskRepository : ITaskRepository
     public async Task<Guid> Update(Guid id, string? title, string? description, State? state)
     {
         var taskEntity = await _context.Tasks.FindAsync(id);
-        
-        
 
         if (taskEntity == null)
             return Guid.Empty;
+        
+        _context.Entry(taskEntity).OriginalValues["RowVersion"] = taskEntity.RowVersion;
 
         if (!string.IsNullOrEmpty(title))
             taskEntity.TaskName = title;
@@ -160,6 +164,9 @@ public class TaskRepository : ITaskRepository
         
         if (userEntity == null || taskEntity == null)
             return Guid.Empty;
+        
+        _context.Tasks.Entry(taskEntity).OriginalValues["RowVersion"] = taskEntity.RowVersion;
+        
         
         taskEntity.AssignedUsers.Remove(userEntity);
 

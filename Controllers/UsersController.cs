@@ -3,6 +3,7 @@ using Event_planning_back.Contracts.Users;
 using Event_planning_back.Core.Abstractions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Event_planning_back.Controllers;
 
@@ -109,13 +110,19 @@ public class UsersController: ControllerBase
             return Unauthorized();
         
         var userId = _jwtProvider1.GetUserId(token);
-
-        var newUser = await _userService.UpdateUser(userId, request.Email, request.Name, request.Surname);
-        if (newUser == null)
-            return NotFound();
-
+        try
+        {
+            var newUser = await _userService.UpdateUser(userId, request.Email, request.Name, request.Surname);
+            if (newUser == null)
+                return NotFound();
+            
+            return Ok(new UserResponse(newUser.Id, newUser.UserName, newUser.UserSurname, newUser.Email));
+        }
+        catch (DbUpdateConcurrencyException e)
+        {
+            return Conflict(new { message = "This record has been modified by another user" });
+        }
         
-        return Ok(new UserResponse(newUser.Id, newUser.UserName, newUser.UserSurname, newUser.Email));
     }
 
     [Authorize]

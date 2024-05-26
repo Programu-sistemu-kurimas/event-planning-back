@@ -61,6 +61,8 @@ public class UserRepository : IUserRepository
         
         if (user == null) return Guid.Empty;
 
+        _context.Entry(user).OriginalValues["RowVersion"] = user.RowVersion;
+
         if (!string.IsNullOrEmpty(userName))
             user.UserName = userName;
         if (!string.IsNullOrEmpty(userSurname))

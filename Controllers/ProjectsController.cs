@@ -225,11 +225,18 @@ public class ProjectsController : ControllerBase
            !await _projectService.AsserRole(adminUserId, request.ProjectId, Role.Owner) &&
            adminUserId != userId)
             return Forbid();
+        try
+        {
+            if (!await _projectService.DeleteUserFromProject(request.ProjectId, userId))
+                return BadRequest();
+            return Ok();
+        }
+        catch (DbUpdateConcurrencyException e)
+        {
+            return Conflict(new { message = "This record has been modified by another user" });
+        }
 
-        if (!await _projectService.DeleteUserFromProject(request.ProjectId, userId))
-            return BadRequest();
-
-        return Ok();
+        
 
 
     }
@@ -248,14 +255,19 @@ public class ProjectsController : ControllerBase
            !await _projectService.AsserRole(userId, request.ProjectId, Role.Owner))
             return Forbid();
 
-        var projectId =
-            await _projectService.UpdateProject(request.ProjectId, request.ProjectName, request.Description);
-
-        if (projectId == Guid.Empty)
-            return NotFound();
+        try
+        {
+            var projectId =
+                await _projectService.UpdateProject(request.ProjectId, request.ProjectName, request.Description);
+            if (projectId == Guid.Empty)
+                return NotFound();
         
-        return await GetProject(projectId);
-
+            return await GetProject(projectId);
+        }
+        catch (DbUpdateConcurrencyException e)
+        {
+            return Conflict(new { message = "This record has been modified by another user" });
+        }
 
     }
 

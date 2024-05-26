@@ -1,0 +1,275 @@
+----- Request Information -----
+User id: 00000000-0000-0000-0000-000000000000
+Username:Anonymous
+Controller: Event_planning_back.Controllers.UsersController
+Action: Register
+Method: POST
+Path: /Users/register
+Start Time: 2024-05-26T22:49:37.7150843Z
+End Time: 2024-05-26T22:49:41.2070748Z
+Duration: 3491.9905 ms
+------------------------------
+----- Request Information -----
+User id: 00000000-0000-0000-0000-000000000000
+Username:Anonymous
+Controller: Event_planning_back.Controllers.UsersController
+Action: Register
+Method: POST
+Path: /Users/register
+Start Time: 2024-05-26T22:49:41.2547193Z
+End Time: 2024-05-26T22:49:41.6517141Z
+Duration: 396.9948 ms
+------------------------------
+----- Request Information -----
+User id: 00000000-0000-0000-0000-000000000000
+Username:Anonymous
+Controller: Event_planning_back.Controllers.UsersController
+Action: Login
+Method: POST
+Path: /Users/login
+Start Time: 2024-05-26T22:49:41.6740447Z
+End Time: 2024-05-26T22:49:42.1123729Z
+Duration: 438.3282 ms
+------------------------------
+----- Request Information -----
+User id: 71bfcf1e-4e1c-4bbc-addb-2da14264eab8
+Username:Rath
+Controller: Event_planning_back.Controllers.ProjectsController
+Action: CreateProject
+Method: POST
+Path: /Projects/create
+Start Time: 2024-05-26T22:49:42.1595789Z
+End Time: 2024-05-26T22:49:42.5156664Z
+Duration: 356.0875 ms
+------------------------------
+----- Request Information -----
+User id: 71bfcf1e-4e1c-4bbc-addb-2da14264eab8
+Username:Rath
+Controller: Event_planning_back.Controllers.UsersController
+Action: GetUserProjects
+Method: GET
+Path: /Users/projects
+Start Time: 2024-05-26T22:49:42.5341789Z
+End Time: 2024-05-26T22:49:42.5625191Z
+Duration: 28.3402 ms
+------------------------------
+----- Request Information -----
+User id: 71bfcf1e-4e1c-4bbc-addb-2da14264eab8
+Username:Rath
+Controller: Event_planning_back.Controllers.ProjectsController
+Action: AddUserToProject
+Method: POST
+Path: /Projects/addUser
+Start Time: 2024-05-26T22:49:42.5810868Z
+End Time: 2024-05-26T22:49:42.7166012Z
+Duration: 135.5144 ms
+------------------------------
+----- Request Information -----
+User id: 71bfcf1e-4e1c-4bbc-addb-2da14264eab8
+Username:Rath
+Controller: Event_planning_back.Controllers.TaskController
+Action: AddTask
+Method: POST
+Path: /Task/create
+Start Time: 2024-05-26T22:49:42.7354369Z
+End Time: 2024-05-26T22:49:42.8142776Z
+Duration: 78.8407 ms
+------------------------------
+----- Request Information -----
+User id: 71bfcf1e-4e1c-4bbc-addb-2da14264eab8
+Username:Rath
+Controller: Event_planning_back.Controllers.TaskController
+Action: AddUserToTask
+Method: POST
+Path: /Task/addUser
+Start Time: 2024-05-26T22:49:42.8323014Z
+End Time: 2024-05-26T22:49:42.8856636Z
+Duration: 53.3622 ms
+------------------------------
+----- Request Information -----
+User id: 71bfcf1e-4e1c-4bbc-addb-2da14264eab8
+Username:Rath
+Controller: Event_planning_back.Controllers.TaskController
+Action: GetTask
+Method: GET
+Path: /Task/f5e6fb3c-639e-4fd9-9bb0-6e54f48c965b
+Start Time: 2024-05-26T22:49:42.9019519Z
+End Time: 2024-05-26T22:49:42.9578908Z
+Duration: 55.9389 ms
+------------------------------
+----- Request Information -----
+User id: 71bfcf1e-4e1c-4bbc-addb-2da14264eab8
+Username:Rath
+Controller: Event_planning_back.Controllers.GuestController
+Action: AddNewGuestToProject
+Method: POST
+Path: /Guest/create
+Start Time: 2024-05-26T22:49:42.9752346Z
+End Time: 2024-05-26T22:49:43.0157094Z
+Duration: 40.4748 ms
+------------------------------
+----- Request Information -----
+User id: 71bfcf1e-4e1c-4bbc-addb-2da14264eab8
+Username:Rath
+Controller: Event_planning_back.Controllers.ProjectsController
+Action: GetGuests
+Method: GET
+Path: /Projects/guests
+Start Time: 2024-05-26T22:49:43.0340723Z
+End Time: 2024-05-26T22:49:43.0828852Z
+Duration: 48.8129 ms
+------------------------------
+----- Request Information -----
+User id: 71bfcf1e-4e1c-4bbc-addb-2da14264eab8
+Username:Rath
+Controller: Event_planning_back.Controllers.GuestController
+Action: DeleteGuest
+Method: DELETE
+Path: /Guest
+Start Time: 2024-05-26T22:49:43.0988062Z
+End Time: 2024-05-26T22:49:43.1424367Z
+Duration: 43.6305 ms
+------------------------------
+----- Request Information -----
+User id: 71bfcf1e-4e1c-4bbc-addb-2da14264eab8
+Username:Rath
+Controller: Event_planning_back.Controllers.ProjectsController
+Action: GetGuests
+Method: GET
+Path: /Projects/guests
+Start Time: 2024-05-26T22:49:43.1575239Z
+End Time: 2024-05-26T22:49:43.1725123Z
+Duration: 14.9884 ms
+------------------------------
+----- Request Information -----
+User id: 71bfcf1e-4e1c-4bbc-addb-2da14264eab8
+Username:Rath
+Controller: Event_planning_back.Controllers.ProjectsController
+Action: GetProject
+Method: GET
+Path: /Projects/567e6435-2dcb-46ae-b42b-0acc814ebef6
+Start Time: 2024-05-26T22:49:43.1861955Z
+End Time: 2024-05-26T22:49:43.2071754Z
+Duration: 20.9799 ms
+------------------------------
+----- Request Information -----
+User id: 71bfcf1e-4e1c-4bbc-addb-2da14264eab8
+Username:Rath
+Controller: Event_planning_back.Controllers.ProjectsController
+Action: ArchiveProject
+Method: POST
+Path: /Projects/Archive/567e6435-2dcb-46ae-b42b-0acc814ebef6
+Start Time: 2024-05-26T22:49:43.2223092Z
+End Time: 2024-05-26T22:49:43.2501616Z
+Duration: 27.8524 ms
+------------------------------
+----- Request Information -----
+User id: 71bfcf1e-4e1c-4bbc-addb-2da14264eab8
+Username:Rath
+Controller: Event_planning_back.Controllers.UsersController
+Action: GetUserProjects
+Method: GET
+Path: /Users/projects
+Start Time: 2024-05-26T22:49:43.2637354Z
+End Time: 2024-05-26T22:49:43.2675791Z
+Duration: 3.8437 ms
+------------------------------
+----- Request Information -----
+User id: 71bfcf1e-4e1c-4bbc-addb-2da14264eab8
+Username:Rath
+Controller: Event_planning_back.Controllers.ProjectsController
+Action: UnarchiveProject
+Method: POST
+Path: /Projects/Unarchive/567e6435-2dcb-46ae-b42b-0acc814ebef6
+Start Time: 2024-05-26T22:49:43.2817675Z
+End Time: 2024-05-26T22:49:43.3002733Z
+Duration: 18.5058 ms
+------------------------------
+----- Request Information -----
+User id: 71bfcf1e-4e1c-4bbc-addb-2da14264eab8
+Username:Rath
+Controller: Event_planning_back.Controllers.UsersController
+Action: GetUserProjects
+Method: GET
+Path: /Users/projects
+Start Time: 2024-05-26T22:49:43.3128366Z
+End Time: 2024-05-26T22:49:43.3162226Z
+Duration: 3.386 ms
+------------------------------
+----- Request Information -----
+User id: 71bfcf1e-4e1c-4bbc-addb-2da14264eab8
+Username:Rath
+Controller: Event_planning_back.Controllers.ProjectsController
+Action: DeleteUserFromProject
+Method: PUT
+Path: /Projects/deleteUser
+Start Time: 2024-05-26T22:49:43.3302230Z
+End Time: 2024-05-26T22:49:43.3718142Z
+Duration: 41.5912 ms
+------------------------------
+----- Request Information -----
+User id: 71bfcf1e-4e1c-4bbc-addb-2da14264eab8
+Username:Rath
+Controller: Event_planning_back.Controllers.TaskController
+Action: DeleteTask
+Method: DELETE
+Path: /Task/f5e6fb3c-639e-4fd9-9bb0-6e54f48c965b
+Start Time: 2024-05-26T22:49:43.3896873Z
+End Time: 2024-05-26T22:49:43.4215085Z
+Duration: 31.8212 ms
+------------------------------
+----- Request Information -----
+User id: 71bfcf1e-4e1c-4bbc-addb-2da14264eab8
+Username:Rath
+Controller: Event_planning_back.Controllers.ProjectsController
+Action: GetProject
+Method: GET
+Path: /Projects/567e6435-2dcb-46ae-b42b-0acc814ebef6
+Start Time: 2024-05-26T22:49:43.4357849Z
+End Time: 2024-05-26T22:49:43.4410443Z
+Duration: 5.2594 ms
+------------------------------
+----- Request Information -----
+User id: 71bfcf1e-4e1c-4bbc-addb-2da14264eab8
+Username:Rath
+Controller: Event_planning_back.Controllers.UsersController
+Action: UpdateUser
+Method: PUT
+Path: /Users/update
+Start Time: 2024-05-26T22:49:43.4574125Z
+End Time: 2024-05-26T22:49:43.4811128Z
+Duration: 23.7003 ms
+------------------------------
+----- Request Information -----
+User id: 71bfcf1e-4e1c-4bbc-addb-2da14264eab8
+Username:Rath
+Controller: Event_planning_back.Controllers.ProjectsController
+Action: DeleteProject
+Method: DELETE
+Path: /Projects/567e6435-2dcb-46ae-b42b-0acc814ebef6
+Start Time: 2024-05-26T22:49:43.4974494Z
+End Time: 2024-05-26T22:49:43.5239839Z
+Duration: 26.5345 ms
+------------------------------
+----- Request Information -----
+User id: 71bfcf1e-4e1c-4bbc-addb-2da14264eab8
+Username:Rath
+Controller: Event_planning_back.Controllers.UsersController
+Action: GetUserProjects
+Method: GET
+Path: /Users/projects
+Start Time: 2024-05-26T22:49:43.5379671Z
+End Time: 2024-05-26T22:49:43.5412134Z
+Duration: 3.2463 ms
+------------------------------
+----- Request Information -----
+User id: 71bfcf1e-4e1c-4bbc-addb-2da14264eab8
+Username:Rath
+Controller: Event_planning_back.Controllers.UsersController
+Action: DeleteUser
+Method: DELETE
+Path: /Users
+Start Time: 2024-05-26T22:49:43.5558634Z
+End Time: 2024-05-26T22:49:43.5855362Z
+Duration: 29.6728 ms
+------------------------------

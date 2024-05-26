@@ -1,0 +1,275 @@
+----- Request Information -----
+User id: 00000000-0000-0000-0000-000000000000
+Username:Anonymous
+Controller: Event_planning_back.Controllers.UsersController
+Action: Register
+Method: POST
+Path: /Users/register
+Start Time: 2024-05-26T22:56:22.6772941Z
+End Time: 2024-05-26T22:56:25.7134281Z
+Duration: 3036.134 ms
+------------------------------
+----- Request Information -----
+User id: 00000000-0000-0000-0000-000000000000
+Username:Anonymous
+Controller: Event_planning_back.Controllers.UsersController
+Action: Register
+Method: POST
+Path: /Users/register
+Start Time: 2024-05-26T22:56:25.7540599Z
+End Time: 2024-05-26T22:56:26.2645704Z
+Duration: 510.5105 ms
+------------------------------
+----- Request Information -----
+User id: 00000000-0000-0000-0000-000000000000
+Username:Anonymous
+Controller: Event_planning_back.Controllers.UsersController
+Action: Login
+Method: POST
+Path: /Users/login
+Start Time: 2024-05-26T22:56:26.2878019Z
+End Time: 2024-05-26T22:56:26.6671028Z
+Duration: 379.3009 ms
+------------------------------
+----- Request Information -----
+User id: fae7d244-0538-44ed-b08d-15dab73f319e
+Username:Roberts
+Controller: Event_planning_back.Controllers.ProjectsController
+Action: CreateProject
+Method: POST
+Path: /Projects/create
+Start Time: 2024-05-26T22:56:26.7171045Z
+End Time: 2024-05-26T22:56:27.0619212Z
+Duration: 344.8167 ms
+------------------------------
+----- Request Information -----
+User id: fae7d244-0538-44ed-b08d-15dab73f319e
+Username:Roberts
+Controller: Event_planning_back.Controllers.UsersController
+Action: GetUserProjects
+Method: GET
+Path: /Users/projects
+Start Time: 2024-05-26T22:56:27.0823582Z
+End Time: 2024-05-26T22:56:27.1104012Z
+Duration: 28.043 ms
+------------------------------
+----- Request Information -----
+User id: fae7d244-0538-44ed-b08d-15dab73f319e
+Username:Roberts
+Controller: Event_planning_back.Controllers.ProjectsController
+Action: AddUserToProject
+Method: POST
+Path: /Projects/addUser
+Start Time: 2024-05-26T22:56:27.1387617Z
+End Time: 2024-05-26T22:56:27.2758485Z
+Duration: 137.0868 ms
+------------------------------
+----- Request Information -----
+User id: fae7d244-0538-44ed-b08d-15dab73f319e
+Username:Roberts
+Controller: Event_planning_back.Controllers.TaskController
+Action: AddTask
+Method: POST
+Path: /Task/create
+Start Time: 2024-05-26T22:56:27.2952803Z
+End Time: 2024-05-26T22:56:27.3728850Z
+Duration: 77.6047 ms
+------------------------------
+----- Request Information -----
+User id: fae7d244-0538-44ed-b08d-15dab73f319e
+Username:Roberts
+Controller: Event_planning_back.Controllers.TaskController
+Action: AddUserToTask
+Method: POST
+Path: /Task/addUser
+Start Time: 2024-05-26T22:56:27.3924977Z
+End Time: 2024-05-26T22:56:27.4444538Z
+Duration: 51.9561 ms
+------------------------------
+----- Request Information -----
+User id: fae7d244-0538-44ed-b08d-15dab73f319e
+Username:Roberts
+Controller: Event_planning_back.Controllers.TaskController
+Action: GetTask
+Method: GET
+Path: /Task/9e4aacfb-365c-44b8-a9f4-03efe107b4fa
+Start Time: 2024-05-26T22:56:27.4645502Z
+End Time: 2024-05-26T22:56:27.5221020Z
+Duration: 57.5518 ms
+------------------------------
+----- Request Information -----
+User id: fae7d244-0538-44ed-b08d-15dab73f319e
+Username:Roberts
+Controller: Event_planning_back.Controllers.GuestController
+Action: AddNewGuestToProject
+Method: POST
+Path: /Guest/create
+Start Time: 2024-05-26T22:56:27.5391801Z
+End Time: 2024-05-26T22:56:27.5827907Z
+Duration: 43.6106 ms
+------------------------------
+----- Request Information -----
+User id: fae7d244-0538-44ed-b08d-15dab73f319e
+Username:Roberts
+Controller: Event_planning_back.Controllers.ProjectsController
+Action: GetGuests
+Method: GET
+Path: /Projects/guests
+Start Time: 2024-05-26T22:56:27.5986899Z
+End Time: 2024-05-26T22:56:27.6432963Z
+Duration: 44.6064 ms
+------------------------------
+----- Request Information -----
+User id: fae7d244-0538-44ed-b08d-15dab73f319e
+Username:Roberts
+Controller: Event_planning_back.Controllers.GuestController
+Action: DeleteGuest
+Method: DELETE
+Path: /Guest
+Start Time: 2024-05-26T22:56:27.6605461Z
+End Time: 2024-05-26T22:56:27.7029119Z
+Duration: 42.3658 ms
+------------------------------
+----- Request Information -----
+User id: fae7d244-0538-44ed-b08d-15dab73f319e
+Username:Roberts
+Controller: Event_planning_back.Controllers.ProjectsController
+Action: GetGuests
+Method: GET
+Path: /Projects/guests
+Start Time: 2024-05-26T22:56:27.7183106Z
+End Time: 2024-05-26T22:56:27.7322344Z
+Duration: 13.9238 ms
+------------------------------
+----- Request Information -----
+User id: fae7d244-0538-44ed-b08d-15dab73f319e
+Username:Roberts
+Controller: Event_planning_back.Controllers.ProjectsController
+Action: GetProject
+Method: GET
+Path: /Projects/afa28f4d-ca32-4124-a1a3-1096d6ccb4e7
+Start Time: 2024-05-26T22:56:27.7456930Z
+End Time: 2024-05-26T22:56:27.7665824Z
+Duration: 20.8894 ms
+------------------------------
+----- Request Information -----
+User id: fae7d244-0538-44ed-b08d-15dab73f319e
+Username:Roberts
+Controller: Event_planning_back.Controllers.ProjectsController
+Action: ArchiveProject
+Method: POST
+Path: /Projects/Archive/afa28f4d-ca32-4124-a1a3-1096d6ccb4e7
+Start Time: 2024-05-26T22:56:27.7826311Z
+End Time: 2024-05-26T22:56:27.8107610Z
+Duration: 28.1299 ms
+------------------------------
+----- Request Information -----
+User id: fae7d244-0538-44ed-b08d-15dab73f319e
+Username:Roberts
+Controller: Event_planning_back.Controllers.UsersController
+Action: GetUserProjects
+Method: GET
+Path: /Users/projects
+Start Time: 2024-05-26T22:56:27.8243054Z
+End Time: 2024-05-26T22:56:27.8276146Z
+Duration: 3.3092 ms
+------------------------------
+----- Request Information -----
+User id: fae7d244-0538-44ed-b08d-15dab73f319e
+Username:Roberts
+Controller: Event_planning_back.Controllers.ProjectsController
+Action: UnarchiveProject
+Method: POST
+Path: /Projects/Unarchive/afa28f4d-ca32-4124-a1a3-1096d6ccb4e7
+Start Time: 2024-05-26T22:56:27.8418833Z
+End Time: 2024-05-26T22:56:27.8627505Z
+Duration: 20.8672 ms
+------------------------------
+----- Request Information -----
+User id: fae7d244-0538-44ed-b08d-15dab73f319e
+Username:Roberts
+Controller: Event_planning_back.Controllers.UsersController
+Action: GetUserProjects
+Method: GET
+Path: /Users/projects
+Start Time: 2024-05-26T22:56:27.8781731Z
+End Time: 2024-05-26T22:56:27.8817409Z
+Duration: 3.5678 ms
+------------------------------
+----- Request Information -----
+User id: fae7d244-0538-44ed-b08d-15dab73f319e
+Username:Roberts
+Controller: Event_planning_back.Controllers.ProjectsController
+Action: DeleteUserFromProject
+Method: PUT
+Path: /Projects/deleteUser
+Start Time: 2024-05-26T22:56:27.8964153Z
+End Time: 2024-05-26T22:56:27.9454244Z
+Duration: 49.0091 ms
+------------------------------
+----- Request Information -----
+User id: fae7d244-0538-44ed-b08d-15dab73f319e
+Username:Roberts
+Controller: Event_planning_back.Controllers.TaskController
+Action: DeleteTask
+Method: DELETE
+Path: /Task/9e4aacfb-365c-44b8-a9f4-03efe107b4fa
+Start Time: 2024-05-26T22:56:27.9608040Z
+End Time: 2024-05-26T22:56:28.0008383Z
+Duration: 40.0343 ms
+------------------------------
+----- Request Information -----
+User id: fae7d244-0538-44ed-b08d-15dab73f319e
+Username:Roberts
+Controller: Event_planning_back.Controllers.ProjectsController
+Action: GetProject
+Method: GET
+Path: /Projects/afa28f4d-ca32-4124-a1a3-1096d6ccb4e7
+Start Time: 2024-05-26T22:56:28.0151471Z
+End Time: 2024-05-26T22:56:28.0211948Z
+Duration: 6.0477 ms
+------------------------------
+----- Request Information -----
+User id: fae7d244-0538-44ed-b08d-15dab73f319e
+Username:Roberts
+Controller: Event_planning_back.Controllers.UsersController
+Action: UpdateUser
+Method: PUT
+Path: /Users/update
+Start Time: 2024-05-26T22:56:28.0360997Z
+End Time: 2024-05-26T22:56:28.0599613Z
+Duration: 23.8616 ms
+------------------------------
+----- Request Information -----
+User id: fae7d244-0538-44ed-b08d-15dab73f319e
+Username:Roberts
+Controller: Event_planning_back.Controllers.ProjectsController
+Action: DeleteProject
+Method: DELETE
+Path: /Projects/afa28f4d-ca32-4124-a1a3-1096d6ccb4e7
+Start Time: 2024-05-26T22:56:28.0760141Z
+End Time: 2024-05-26T22:56:28.1018419Z
+Duration: 25.8278 ms
+------------------------------
+----- Request Information -----
+User id: fae7d244-0538-44ed-b08d-15dab73f319e
+Username:Roberts
+Controller: Event_planning_back.Controllers.UsersController
+Action: GetUserProjects
+Method: GET
+Path: /Users/projects
+Start Time: 2024-05-26T22:56:28.1171151Z
+End Time: 2024-05-26T22:56:28.1208991Z
+Duration: 3.784 ms
+------------------------------
+----- Request Information -----
+User id: fae7d244-0538-44ed-b08d-15dab73f319e
+Username:Roberts
+Controller: Event_planning_back.Controllers.UsersController
+Action: DeleteUser
+Method: DELETE
+Path: /Users
+Start Time: 2024-05-26T22:56:28.1382741Z
+End Time: 2024-05-26T22:56:28.1703127Z
+Duration: 32.0386 ms
+------------------------------

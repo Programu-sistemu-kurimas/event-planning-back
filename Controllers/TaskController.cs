@@ -5,6 +5,7 @@ using Event_planning_back.Core.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Event_planning_back.Contracts.Project;
+using Microsoft.EntityFrameworkCore;
 using Task = Event_planning_back.Core.Models.Task;
 
 namespace Event_planning_back.Controllers;
@@ -56,34 +57,50 @@ public class TaskController : ControllerBase
 
         if (task == null)
             return NotFound();
-        var userResponsesLists =  task.Users
-            .Select(async u =>
-            {
-                var role = await _projectService.GetUserRole(u, task.Project);
-                return new UserResponseList(
-                    u.Id, u.UserName, u.UserSurname, u.Email, role.ToString());
-            });
-        
-        var userList = await System.Threading.Tasks.Task.WhenAll(userResponsesLists);
-        
+
+        var userList = new List<UserResponseList>();
+
+        foreach (var u in task.Users)
+        {
+            var role = await _projectService.GetUserRole(u, task.Project);
+            var userResponse = new UserResponseList(
+                u.Id,
+                u.UserName,
+                u.UserSurname,
+                u.Email,
+                role.ToString());
+            userList.Add(userResponse);
+        }
+
         var response = new TaskResponse(
-            task.Id, 
-            task.TaskName, 
-            task.Description, 
+            task.Id,
+            task.TaskName,
+            task.Description,
             task.TaskState.ToString(),
-            userList.ToList()
+            userList
         );
-        
+
         return Ok(response);
     }
+
+    
+    
 
     [Authorize]
     [HttpPost("addUser")]
     public async Task<IActionResult> AddUserToTask(AddUserToTaskRequest request)
     {
-        var response = await _taskService.AddUserToTask(request.TaskId, request.UserId);
-        if (response == Guid.Empty)
-            return NotFound();
+        try
+        {
+            var response = await _taskService.AddUserToTask(request.TaskId, request.UserId);
+            if (response == Guid.Empty)
+                return NotFound();
+        }
+        catch (DbUpdateConcurrencyException e)
+        {
+            return Conflict(new { message = "This record has been modified by another user" });
+        }
+       
 
         return Created();
     }
@@ -126,10 +143,16 @@ public class TaskController : ControllerBase
         if (!await _projectService.AsserRole(userId, request.ProjectId, Role.Admin) &&
             !await _projectService.AsserRole(userId, request.ProjectId, Role.Owner))
             return Forbid();
-
-        var taskId = await _taskService.UpdateTask(request.TaskId, request.TaskName, request.Description, request.State );
+        try
+        {
+            var taskId = await _taskService.UpdateTask(request.TaskId, request.TaskName, request.Description, request.State );
         
-        return await GetTask(taskId);
+            return await GetTask(taskId);
+        }
+        catch (DbUpdateConcurrencyException e)
+        {
+            return Conflict(new { message = "This record has been modified by another user" });
+        }
 
     }
 
@@ -137,9 +160,16 @@ public class TaskController : ControllerBase
     [HttpPut("removeUser")]
     public async Task<IActionResult> RemoveUserFromTask(RemoveUserFromTaskRequest request)
     {
-        var guid = await _taskService.RemoveUserFromTask(request.UserId, request.TaskId);
+        try
+        {
+            var guid = await _taskService.RemoveUserFromTask(request.UserId, request.TaskId);
 
-        return await GetTask(guid);
+            return await GetTask(guid);
+        }
+        catch (DbUpdateConcurrencyException e)
+        {
+            return Conflict(new { message = "This record has been modified by another user" });
+        }
     }
     
     
